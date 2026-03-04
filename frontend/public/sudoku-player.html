@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sudoku Game - x86 Assembly</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 10px;
+    }
+    .container {
+      width: 100%;
+      height: 100vh;
+      border: 2px solid #00ff00;
+      background: #000;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .fallback {
+      padding: 50px;
+      text-align: center;
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="emulator"></iframe>
+  
+  <script>
+    // Use the official js-dos embed service
+    const gameUrl = 'suduko.com';
+    
+    // Create embed code
+    const embedHTML = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { margin: 0; background: #000; }
+        </style>
+      </head>
+      <body>
+        <div id="dos"></div>
+        
+        <!-- Official js-dos library -->
+        <script src="https://js-dos.com/cdn/js-dos-x86.6.22.min.js"><\/script>
+        <script>
+          async function init() {
+            const response = await fetch('../${gameUrl}', { mode: 'cors', credentials: 'include' });
+            const data = await response.arrayBuffer();
+            
+            if (window.Dos) {
+              Dos.run(data, {
+                wdosboxUrl: 'https://js-dos.com/cdn/wdosbox-0.74.3.js'
+              });
+            }
+          }
+          
+          // Start game after DOM loads
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+          } else {
+            init();
+          }
+        <\/script>
+      </body>
+      </html>
+    `;
+    
+    // Write to iframe
+    const iframe = document.getElementById('emulator');
+    iframe.onload = function() {
+      try {
+        iframe.contentDocument.open();
+        iframe.contentDocument.write(embedHTML);
+        iframe.contentDocument.close();
+      } catch(e) {
+        console.error('Iframe error:', e);
+      }
+    };
+    
+    // Fallback if iframe fails
+    setTimeout(() => {
+      if (!iframe.contentWindow || !iframe.contentWindow.document.body) {
+        console.log('Iframe not working, using direct embed');
+        document.body.innerHTML = `
+          <div class="fallback">
+            <p style="font-size: 18px;">C:\\\\> suduko.com</p>
+            <p style="margin: 20px 0;">Loading emulator...</p>
+            <p style="color: #00ff00; font-size: 14px; margin: 30px 0;">
+              <a href="suduko.com" download style="color: #ffed4e; text-decoration: none;">[DOWNLOAD GAME]</a>
+            </p>
+          </div>
+        `;
+      }
+    }, 3000);
+  </script>
+</body>
+</html>

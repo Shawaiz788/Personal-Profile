@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Game - C++ WebAssembly</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: #1818e6;
+                font-family: 'Courier New', monospace;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            #container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+            }
+            #terminal {
+                width: 800px;
+                height: 480px;
+                background: #000;
+                border-radius: 12px;
+                box-shadow: 0 2px 16px #0006;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+            h1 {
+                color: #ffd700;
+                margin-bottom: 12px;
+            }
+        </style>
+</head>
+<body>
+        <div id="container">
+            <h1>Bingo Game (C++ WebAssembly)</h1>
+            <div id="terminal"></div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+        <script>
+            // Setup xterm.js
+            const term = new window.Terminal({
+                cols: 100,
+                rows: 30,
+                fontFamily: 'Courier New, monospace',
+                fontSize: 16,
+                theme: {
+                    background: '#000',
+                    foreground: '#ffd700',
+                    cursor: '#ffd700',
+                },
+                cursorBlink: true
+            });
+            term.open(document.getElementById('terminal'));
+            term.focus();
+            // Show a visible welcome message immediately
+            term.write('\x1b[33;1mWelcome to Bingo! If you see nothing else, the WASM module may have failed to load.\x1b[0m\r\n');
+
+            // Buffer for input
+            let inputBuffer = [];
+            let inputReady = false;
+
+            // Handle user input for xterm.js
+            term.onData(data => {
+                if (data === '\r') { // Enter
+                    term.write('\r\n');
+                    inputBuffer.push('\n'.charCodeAt(0));
+                    inputReady = true;
+                } else if (data === '\u007f') { // Backspace
+                    if (inputBuffer.length > 0) {
+                        inputBuffer.pop();
+                        term.write('\b \b');
+                    }
+                } else {
+                    inputBuffer.push(data.charCodeAt(0));
+                    term.write(data);
+                }
+            });
+
+            // Emscripten Module config
+            var Module = {
+                print: function(text) {
+                    if (text) term.write(text + '\r\n');
+                },
+                printErr: function(text) {
+                    if (text) term.write('\x1b[31m' + text + '\x1b[0m\r\n');
+                },
+                setStatus: function(text) {
+                    // Optional: show status
+                },
+                locateFile: function(path) {
+                    if (path.endsWith('.wasm')) return '/bingo.wasm';
+                    return path;
+                },
+                preRun: [function() {
+                    // Setup FS.init for stdin/stdout
+                    if (typeof FS !== 'undefined') {
+                        FS.init(
+                            // stdin
+                            function() {
+                                // Wait for input
+                                while (!inputReady) {
+                                    // Busy wait (not ideal, but works for demo)
+                                }
+                                inputReady = false;
+                                return inputBuffer.shift();
+                            },
+                            // stdout
+                            function(c) {
+                                if (c === null || c === undefined) return;
+                                term.write(String.fromCharCode(c));
+                            },
+                            // stderr
+                            function(c) {
+                                if (c === null || c === undefined) return;
+                                term.write('\x1b[31m' + String.fromCharCode(c) + '\x1b[0m');
+                            }
+                        );
+                    }
+                }]
+            };
+
+            // Load the WASM module
+            var script = document.createElement('script');
+            script.src = '/bingo.js';
+            // No need to call main manually; Emscripten will auto-run main()
+            script.onerror = function() {
+                term.write('\r\n\x1b[31;1m[ERROR] Failed to load bingo.js. Check your build and network.\x1b[0m\r\n');
+            };
+            document.body.appendChild(script);
+        </script>
+</body>
+</html>
