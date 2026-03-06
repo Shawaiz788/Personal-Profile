@@ -15,12 +15,12 @@ const Home = () => {
         </div>
 
         {/* Floating Elements */}
-        <div className="floating-elements">
+          <div className="floating-elements">
           <div className="floating-shape shape-1"></div>
           <div className="floating-shape shape-2"></div>
           <div className="floating-shape shape-3"></div>
-          <div className="code-snippet">{"<Developer />"}</div>
-          <div className="code-snippet-2">{"{React}"}</div>
+          <div className="code-snippet">{"<Shawaiz />"}</div>
+          <div className="code-snippet-2">{"{Student Builder}"}</div>
         </div>
 
         {/* Main Content */}
@@ -29,11 +29,13 @@ const Home = () => {
             {/* Availability Badge */}
             <div className="availability-badge">
               <span className="dot"></span>
-              Available for work
+              Open to opportunities
             </div>
 
             {/* Main Heading */}
             <h1 className="main-title">
+              Shawaiz Ali Rehman
+              <br />
               Building digital
               <span className="gradient-text"> experiences</span>
               <br />
@@ -42,9 +44,8 @@ const Home = () => {
 
             {/* Description */}
             <p className="description">
-              I'm a Full-Stack Developer passionate about creating 
-              beautiful, functional, and user-centered applications. 
-              Specialized in React and Node.js with 5+ years of experience.
+              I'm a Computer Science student at FAST-NUCES who enjoys building thoughtful web and systems projects.
+              I am working toward becoming a software engineer through hands-on development in C++, Python, React, Node.js, and database-driven applications.
             </p>
 
             {/* CTA Buttons */}
@@ -75,18 +76,18 @@ const Home = () => {
         <div className="stats-wrapper">
           <div className="stats-container">
             <div className="stat-card">
-              <span className="stat-value">5+</span>
-              <span className="stat-label">Years Experience</span>
+              <span className="stat-value">3.9</span>
+              <span className="stat-label">Current GPA</span>
             </div>
             <div className="stat-divider"></div>
             <div className="stat-card">
-              <span className="stat-value">50+</span>
-              <span className="stat-label">Projects Completed</span>
+              <span className="stat-value">6+</span>
+              <span className="stat-label">Projects Built</span>
             </div>
             <div className="stat-divider"></div>
             <div className="stat-card">
-              <span className="stat-value">20+</span>
-              <span className="stat-label">Happy Clients</span>
+              <span className="stat-value">BSCS</span>
+              <span className="stat-label">Current Degree</span>
             </div>
           </div>
           {/* Move View My Work button below stats */}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BingoGame from './BingoGame';
 import SudokuGame from './SudokuGame';
-import { FiArrowRight, FiCode, FiDownload, FiPlay, FiStar } from 'react-icons/fi';
+import { FiArrowRight, FiCode, FiDownload, FiExternalLink, FiPlay, FiStar } from 'react-icons/fi';
 
 const portfolioProjects = [
   {
@@ -77,6 +77,40 @@ const portfolioProjects = [
         fileName: 'bank.cpp'
       }
     ]
+  },
+  {
+    id: 'restaurant-reservation',
+    title: 'Restaurant Reservation System',
+    tagline: 'Full-stack reservation platform',
+    description: 'A reservation management web app built for handling table bookings, customer records, user authentication, and live availability across a restaurant workflow.',
+    technologies: ['React', 'Node.js', 'Express', 'SQL', 'Authentication'],
+    icon: '🍽️',
+    gradient: 'linear-gradient(135deg, #2ec4b6 0%, #1b9aaa 100%)',
+    categories: ['fullstack'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/Restaurant-Reservation-System.git'
+      }
+    ]
+  },
+  {
+    id: 'codeack',
+    title: 'CodeAck',
+    tagline: 'Competitive programming platform',
+    description: 'A full-stack coding practice platform inspired by modern competitive programming tools, with problem management, submissions, authentication, leaderboard data, and scalable backend structure.',
+    technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Supabase', 'Code Evaluation'],
+    icon: '🧠',
+    gradient: 'linear-gradient(135deg, #7b61ff 0%, #4cc9f0 100%)',
+    categories: ['fullstack'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/AhmedNasir7/Codeack-SDA_Project.git'
+      }
+    ]
   }
 ];
 
@@ -87,6 +121,15 @@ function ActionButton({ action, onPlay }) {
         <FiPlay />
         {action.label}
       </button>
+    );
+  }
+
+  if (action.kind === 'external') {
+    return (
+      <a className="action-button secondary" href={action.href} target="_blank" rel="noreferrer">
+        <FiExternalLink />
+        {action.label}
+      </a>
     );
   }
 
@@ -205,7 +248,7 @@ const Projects = () => {
           </h1>
 
           <p className="subtitle">
-            A focused showcase of interactive builds and C++ console applications. Play the browser-ready projects on site, or download the original source files directly from the portfolio.
+            A focused showcase of interactive builds, full-stack applications, and C++ console systems. Play the browser-ready projects on site, explore production-style app concepts, or download the original source files directly from the portfolio.
           </p>
 
           <div className="filter-tabs">
@@ -226,6 +269,12 @@ const Projects = () => {
               onClick={() => setFilter('cpp')}
             >
               C++ Source
+            </button>
+            <button
+              className={`filter-tab ${filter === 'fullstack' ? 'active' : ''}`}
+              onClick={() => setFilter('fullstack')}
+            >
+              Full-Stack
             </button>
           </div>
         </div>

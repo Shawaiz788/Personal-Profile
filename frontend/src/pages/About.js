@@ -1,18 +1,110 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FiDownload, FiGithub, FiLinkedin, FiMail, FiMapPin, FiCalendar, FiBriefcase, FiCode } from 'react-icons/fi';
 
+const defaultData = {
+  name: 'Shawaiz Ali Rehman',
+  title: 'Computer Science Student',
+  location: 'Lahore, Punjab',
+  status: 'Open to full-time roles, internships, and freelance work',
+  bio: 'Computer Science undergraduate at FAST-NUCES with a strong academic record and hands-on experience in software development and teaching. Skilled in C/C++, Python, SQL, and modern web technologies including React and Node.js. Experienced in building web, console, and systems-oriented projects such as reservation platforms, console games, and assembly-based applications. Passionate about problem-solving, clean system design, and growing into a strong software engineer.',
+  stats: [
+    { label: 'GPA', value: '3.9' },
+    { label: 'Projects', value: '6+' },
+    { label: 'Degree', value: 'BSCS' },
+    { label: 'Goal', value: 'Software Engineer' }
+  ],
+  skills: {
+    frontend: ['React', 'Next.js', 'JavaScript', 'HTML/CSS'],
+    backend: ['Node.js', 'Express', 'SQL', 'Supabase', 'PostgreSQL'],
+    tools: ['C++', 'C', 'Python', 'x86 Assembly', 'GitHub', 'Figma']
+  },
+  education: [
+    {
+      year: '2023 - 2027',
+      degree: 'BS Computer Science',
+      school: 'FAST-NUCES, Lahore',
+      note: 'Current GPA: 3.9'
+    },
+    {
+      year: '2021 - 2023',
+      degree: 'A-Levels, Computer Science',
+      school: 'Beaconhouse College Gulberg, Lahore',
+      note: 'Grade: A*'
+    }
+  ],
+  links: {
+    github: 'https://github.com/Shawaiz788',
+    linkedin: 'https://www.linkedin.com/in/shawaiz-ali-rehman-52227427b/',
+    email: 'shawaizali788@gmail.com'
+  },
+  resume: {
+    href: '/resume.pdf',
+    label: 'Download Resume'
+  }
+};
+
+const placeholderValues = new Set([
+  'Your Name',
+  'Web Developer',
+  'Full-Stack Developer',
+  'Welcome to my portfolio! I am a passionate full-stack developer.'
+]);
+
+function sanitizeText(value, fallback) {
+  if (typeof value !== 'string') {
+    return fallback;
+  }
+
+  const trimmed = value.trim();
+  if (!trimmed || placeholderValues.has(trimmed)) {
+    return fallback;
+  }
+
+  return trimmed;
+}
+
+function mergeAboutData(apiData) {
+  if (!apiData || typeof apiData !== 'object') {
+    return defaultData;
+  }
+
+  return {
+    ...defaultData,
+    ...apiData,
+    name: sanitizeText(apiData.name, defaultData.name),
+    title: sanitizeText(apiData.title, defaultData.title),
+    location: sanitizeText(apiData.location, defaultData.location),
+    status: sanitizeText(apiData.status, defaultData.status),
+    bio: sanitizeText(apiData.bio, defaultData.bio),
+    stats: Array.isArray(apiData.stats) && apiData.stats.length ? apiData.stats : defaultData.stats,
+    education: Array.isArray(apiData.education) && apiData.education.length ? apiData.education : defaultData.education,
+    skills: {
+      ...defaultData.skills,
+      ...(apiData.skills || {})
+    },
+    links: {
+      ...defaultData.links,
+      ...(apiData.links || {})
+    },
+    resume: {
+      ...defaultData.resume,
+      ...(apiData.resume || {})
+    }
+  };
+}
+
 const About = () => {
-  const [about, setAbout] = useState(null);
+  const [about, setAbout] = useState(defaultData);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get('/api/about')
-      .then(res => {
-        setAbout(res.data);
+      .then((res) => {
+        setAbout(mergeAboutData(res.data));
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error fetching about data:', err);
         setLoading(false);
       });
@@ -50,47 +142,15 @@ const About = () => {
     );
   }
 
-  // Default data in case API doesn't return anything
-  const defaultData = {
-    name: "Your Name",
-    title: "Full-Stack Developer",
-    bio: "I'm a passionate Full-Stack Developer with expertise in React, Node.js, and modern web technologies. I love creating elegant solutions to complex problems and building applications that make a difference."
-  };
-
-  const data = about || defaultData;
-
-  // Skills data (you can fetch this from API or define here)
-  const skills = {
-    frontend: ['React', 'JavaScript', 'TypeScript', 'HTML5/CSS3', 'Next.js', 'Tailwind CSS'],
-    backend: ['Node.js', 'Python', 'Express', 'MongoDB', 'PostgreSQL', 'REST APIs'],
-    tools: ['Git', 'Docker', 'AWS', 'VS Code', 'Figma', 'Jest']
-  };
-
-  // Experience timeline
-  const experiences = [
-    {
-      year: '2023 - Present',
-      role: 'Senior Full-Stack Developer',
-      company: 'Tech Company',
-      description: 'Leading development of web applications, mentoring junior developers.'
-    },
-    {
-      year: '2021 - 2023',
-      role: 'Frontend Developer',
-      company: 'Digital Agency',
-      description: 'Built responsive web applications using React and modern frameworks.'
-    },
-    {
-      year: '2019 - 2021',
-      role: 'Junior Developer',
-      company: 'Startup',
-      description: 'Developed and maintained various web applications.'
-    }
+  const data = mergeAboutData(about);
+  const socialLinks = [
+    { href: data.links.github, icon: <FiGithub />, label: 'GitHub' },
+    { href: data.links.linkedin, icon: <FiLinkedin />, label: 'LinkedIn' },
+    { href: `mailto:${data.links.email}`, icon: <FiMail />, label: 'Email' }
   ];
 
   return (
     <div className="about-container">
-      {/* Animated Background */}
       <div className="background">
         <div className="gradient-orb orb-1"></div>
         <div className="gradient-orb orb-2"></div>
@@ -98,104 +158,81 @@ const About = () => {
         <div className="grid-overlay"></div>
       </div>
 
-      {/* Floating Elements */}
       <div className="floating-elements">
         <div className="floating-shape shape-1"></div>
         <div className="floating-shape shape-2"></div>
         <div className="floating-shape shape-3"></div>
-        <div className="code-snippet">{"<About />"}</div>
-        <div className="code-snippet-2">{"{Developer}"}</div>
+        <div className="code-snippet">{'<About />'}</div>
+        <div className="code-snippet-2">{'{Aspiring Software Engineer}'}</div>
       </div>
 
-      {/* Main Content */}
       <div className="content">
-        {/* Header */}
         <div className="about-header">
           <div className="header-badge">
             <span className="dot"></span>
             Get to know me
           </div>
-          
+
           <h1 className="about-title">
             About <span className="gradient-text">Me</span>
           </h1>
         </div>
 
-        {/* Profile Section */}
         <div className="profile-section">
-          {/* Profile Card */}
           <div className="profile-card">
             <div className="profile-avatar">
               <span className="avatar-text">{data.name.charAt(0)}</span>
             </div>
             <h2 className="profile-name">{data.name}</h2>
             <p className="profile-title">{data.title}</p>
-            
+
             <div className="profile-info">
               <div className="info-item">
                 <FiMapPin className="info-icon" />
-                <span>San Francisco, CA</span>
+                <span>{data.location}</span>
               </div>
               <div className="info-item">
                 <FiCalendar className="info-icon" />
-                <span>5+ years experience</span>
+                <span>{data.education[0]?.year || 'Current'}</span>
               </div>
               <div className="info-item">
                 <FiBriefcase className="info-icon" />
-                <span>Available for work</span>
+                <span>{data.status}</span>
               </div>
             </div>
 
             <div className="profile-social">
-              <a href="#" className="social-link" aria-label="GitHub">
-                <FiGithub />
-              </a>
-              <a href="#" className="social-link" aria-label="LinkedIn">
-                <FiLinkedin />
-              </a>
-              <a href="#" className="social-link" aria-label="Email">
-                <FiMail />
-              </a>
+              {socialLinks.map((item) => (
+                <a key={item.label} href={item.href} className="social-link" aria-label={item.label} target={item.label !== 'Email' ? '_blank' : undefined} rel={item.label !== 'Email' ? 'noreferrer' : undefined}>
+                  {item.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Bio Card */}
           <div className="bio-card">
             <h3 className="bio-title">My Story</h3>
             <p className="bio-text">{data.bio}</p>
             <p className="bio-text">
-              I believe in writing clean, maintainable code and creating intuitive user experiences. 
-              When I'm not coding, you can find me exploring new technologies, contributing to open source, 
-              or sharing knowledge with the developer community.
+              I enjoy building polished user experiences, solving systems-level problems, and turning technically complex ideas into practical software products. My work spans browser applications, backend services, and lower-level programming projects while I continue developing toward a long-term career in software engineering.
             </p>
-            
+
             <div className="stats-grid">
-              <div className="stat-item">
-                <span className="stat-number">50+</span>
-                <span className="stat-label">Projects</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">5+</span>
-                <span className="stat-label">Years</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">20+</span>
-                <span className="stat-label">Clients</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">∞</span>
-                <span className="stat-label">Coffee</span>
-              </div>
+              {data.stats.map((item) => (
+                <div key={item.label} className="stat-item">
+                  <span className="stat-number">{item.value}</span>
+                  <span className="stat-label">{item.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Skills Section */}
         <div className="skills-section">
           <h2 className="section-title">
             <span className="gradient-text">⚡</span> Skills & Technologies
           </h2>
-          
+
           <div className="skills-grid">
             <div className="skill-category">
               <div className="category-header">
@@ -203,8 +240,8 @@ const About = () => {
                 <h3>Frontend</h3>
               </div>
               <div className="skill-tags">
-                {skills.frontend.map((skill, index) => (
-                  <span key={index} className="skill-tag">{skill}</span>
+                {data.skills.frontend.map((skill) => (
+                  <span key={skill} className="skill-tag">{skill}</span>
                 ))}
               </div>
             </div>
@@ -215,8 +252,8 @@ const About = () => {
                 <h3>Backend</h3>
               </div>
               <div className="skill-tags">
-                {skills.backend.map((skill, index) => (
-                  <span key={index} className="skill-tag">{skill}</span>
+                {data.skills.backend.map((skill) => (
+                  <span key={skill} className="skill-tag">{skill}</span>
                 ))}
               </div>
             </div>
@@ -224,64 +261,38 @@ const About = () => {
             <div className="skill-category">
               <div className="category-header">
                 <FiCode className="category-icon" />
-                <h3>Tools & Others</h3>
+                <h3>Systems & Tools</h3>
               </div>
               <div className="skill-tags">
-                {skills.tools.map((skill, index) => (
-                  <span key={index} className="skill-tag">{skill}</span>
+                {data.skills.tools.map((skill) => (
+                  <span key={skill} className="skill-tag">{skill}</span>
                 ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Experience Timeline */}
-        <div className="timeline-section">
-          <h2 className="section-title">
-            <span className="gradient-text">📅</span> Work Experience
-          </h2>
-
-          <div className="timeline">
-            {experiences.map((exp, index) => (
-              <div key={index} className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-content">
-                  <span className="timeline-year">{exp.year}</span>
-                  <h3 className="timeline-role">{exp.role}</h3>
-                  <h4 className="timeline-company">{exp.company}</h4>
-                  <p className="timeline-description">{exp.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Education & Certifications */}
         <div className="education-section">
           <h2 className="section-title">
             <span className="gradient-text">🎓</span> Education
           </h2>
 
           <div className="education-grid">
-            <div className="education-card">
-              <div className="education-year">2015 - 2019</div>
-              <h3 className="education-degree">Bachelor's in Computer Science</h3>
-              <p className="education-school">University Name</p>
-            </div>
-            
-            <div className="education-card">
-              <div className="education-year">2020</div>
-              <h3 className="education-degree">Full-Stack Web Development</h3>
-              <p className="education-school">Bootcamp/Certification</p>
-            </div>
+            {data.education.map((item) => (
+              <div key={`${item.school}-${item.degree}`} className="education-card">
+                <div className="education-year">{item.year}</div>
+                <h3 className="education-degree">{item.degree}</h3>
+                <p className="education-school">{item.school}</p>
+                <p className="education-note">{item.note}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Resume Download */}
         <div className="resume-section">
-          <a href="/resume.pdf" className="resume-button" download>
+          <a href={data.resume.href} className="resume-button" download>
             <FiDownload className="button-icon" />
-            Download Resume
+            {data.resume.label}
           </a>
         </div>
       </div>
@@ -297,13 +308,9 @@ const About = () => {
           padding: 6rem 2rem;
         }
 
-        /* Animated Background */
         .background {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           z-index: 1;
         }
 
@@ -344,24 +351,17 @@ const About = () => {
 
         .grid-overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: 
+          inset: 0;
+          background-image:
             linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
           background-size: 50px 50px;
           z-index: 2;
         }
 
-        /* Floating Elements */
         .floating-elements {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           z-index: 3;
           pointer-events: none;
         }
@@ -423,7 +423,6 @@ const About = () => {
           animation: float 7s ease-in-out infinite reverse;
         }
 
-        /* Main Content */
         .content {
           position: relative;
           z-index: 10;
@@ -431,7 +430,6 @@ const About = () => {
           margin: 0 auto;
         }
 
-        /* Header */
         .about-header {
           text-align: center;
           margin-bottom: 4rem;
@@ -471,7 +469,6 @@ const About = () => {
           animation: gradientShift 8s ease infinite;
         }
 
-        /* Profile Section */
         .profile-section {
           display: grid;
           grid-template-columns: 1fr 2fr;
@@ -479,12 +476,17 @@ const About = () => {
           margin-bottom: 4rem;
         }
 
-        /* Profile Card */
-        .profile-card {
+        .profile-card,
+        .bio-card,
+        .skill-category,
+        .education-card {
           background: rgba(255, 255, 255, 0.05);
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 24px;
+        }
+
+        .profile-card {
           padding: 2rem;
           text-align: center;
         }
@@ -521,20 +523,24 @@ const About = () => {
         .profile-info {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 0.9rem;
           margin-bottom: 1.5rem;
+          text-align: left;
         }
 
         .info-item {
           display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          color: rgba(255, 255, 255, 0.8);
+          align-items: flex-start;
+          gap: 0.65rem;
+          color: rgba(255, 255, 255, 0.82);
           font-size: 0.95rem;
         }
 
-        .info-icon {
+        .info-icon,
+        .category-icon {
           color: #667eea;
+          margin-top: 0.1rem;
+          flex-shrink: 0;
         }
 
         .profile-social {
@@ -562,12 +568,7 @@ const About = () => {
           transform: translateY(-3px);
         }
 
-        /* Bio Card */
         .bio-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 24px;
           padding: 2rem;
         }
 
@@ -579,8 +580,8 @@ const About = () => {
         }
 
         .bio-text {
-          color: rgba(255, 255, 255, 0.8);
-          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.82);
+          line-height: 1.85;
           margin-bottom: 1rem;
         }
 
@@ -596,7 +597,7 @@ const About = () => {
         }
 
         .stat-number {
-          font-size: 1.5rem;
+          font-size: 1.35rem;
           font-weight: 700;
           background: linear-gradient(135deg, #fff, #a5b4fc);
           -webkit-background-clip: text;
@@ -606,11 +607,11 @@ const About = () => {
 
         .stat-label {
           font-size: 0.85rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.64);
         }
 
-        /* Skills Section */
-        .skills-section {
+        .skills-section,
+        .education-section {
           margin-bottom: 4rem;
         }
 
@@ -630,10 +631,6 @@ const About = () => {
         }
 
         .skill-category {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
           padding: 1.5rem;
         }
 
@@ -642,11 +639,6 @@ const About = () => {
           align-items: center;
           gap: 0.5rem;
           margin-bottom: 1.5rem;
-        }
-
-        .category-icon {
-          color: #667eea;
-          font-size: 1.25rem;
         }
 
         .category-header h3 {
@@ -667,85 +659,6 @@ const About = () => {
           border-radius: 50px;
           font-size: 0.85rem;
           color: rgba(255, 255, 255, 0.9);
-          transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-          border-color: #667eea;
-          background: rgba(102, 126, 234, 0.1);
-        }
-
-        /* Timeline Section */
-        .timeline-section {
-          margin-bottom: 4rem;
-        }
-
-        .timeline {
-          position: relative;
-          padding-left: 2rem;
-        }
-
-        .timeline::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 2px;
-          background: linear-gradient(to bottom, #667eea, #764ba2);
-        }
-
-        .timeline-item {
-          position: relative;
-          margin-bottom: 2rem;
-        }
-
-        .timeline-dot {
-          position: absolute;
-          left: -2.4rem;
-          top: 0.5rem;
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: #667eea;
-          border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .timeline-content {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 16px;
-          padding: 1.5rem;
-        }
-
-        .timeline-year {
-          font-size: 0.9rem;
-          color: #667eea;
-          font-weight: 600;
-        }
-
-        .timeline-role {
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin: 0.5rem 0 0.25rem;
-        }
-
-        .timeline-company {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 0.95rem;
-          margin-bottom: 0.75rem;
-        }
-
-        .timeline-description {
-          color: rgba(255, 255, 255, 0.8);
-          font-size: 0.95rem;
-          line-height: 1.6;
-        }
-
-        /* Education Section */
-        .education-section {
-          margin-bottom: 4rem;
         }
 
         .education-grid {
@@ -755,64 +668,58 @@ const About = () => {
         }
 
         .education-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 16px;
-          padding: 1.5rem;
+          padding: 1.75rem;
         }
 
         .education-year {
-          font-size: 0.9rem;
           color: #667eea;
           font-weight: 600;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.75rem;
         }
 
         .education-degree {
-          font-size: 1.1rem;
+          font-size: 1.2rem;
           font-weight: 600;
-          margin-bottom: 0.25rem;
+          margin-bottom: 0.4rem;
         }
 
         .education-school {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 0.95rem;
+          color: rgba(255, 255, 255, 0.78);
+          margin-bottom: 0.6rem;
         }
 
-        /* Resume Section */
+        .education-note {
+          color: rgba(255, 255, 255, 0.62);
+          font-size: 0.92rem;
+        }
+
         .resume-section {
-          text-align: center;
+          display: flex;
+          justify-content: center;
         }
 
         .resume-button {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
-          background: white;
-          color: #0a0a0a;
-          padding: 1rem 2.5rem;
-          border-radius: 50px;
-          font-size: 1rem;
-          font-weight: 600;
+          gap: 0.75rem;
+          padding: 1rem 2rem;
+          border-radius: 999px;
           text-decoration: none;
-          transition: all 0.3s ease;
-        }
-
-        .resume-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 20px 30px -10px rgba(102, 126, 234, 0.5);
-        }
-
-        .button-icon {
+          color: #111318;
+          background: linear-gradient(135deg, #ffffff, #dbe4ff);
+          font-weight: 700;
+          box-shadow: 0 18px 40px rgba(102, 126, 234, 0.25);
           transition: transform 0.3s ease;
         }
 
-        .resume-button:hover .button-icon {
-          transform: translateY(-2px);
+        .resume-button:hover {
+          transform: translateY(-3px);
         }
 
-        /* Animations */
+        .button-icon {
+          font-size: 1.1rem;
+        }
+
         @keyframes float {
           0%, 100% {
             transform: translateY(0) rotate(0deg);
@@ -857,18 +764,15 @@ const About = () => {
           }
         }
 
-        /* Responsive Design */
         @media (max-width: 968px) {
-          .profile-section {
-            grid-template-columns: 1fr;
-          }
-
-          .skills-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
+          .profile-section,
+          .skills-grid,
           .education-grid {
             grid-template-columns: 1fr;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
 
@@ -878,28 +782,11 @@ const About = () => {
           }
 
           .about-title {
-            font-size: 2rem;
-          }
-
-          .skills-grid {
-            grid-template-columns: 1fr;
+            font-size: 2.2rem;
           }
 
           .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .profile-card {
-            padding: 1.5rem;
-          }
-
-          .profile-avatar {
-            width: 100px;
-            height: 100px;
-          }
-
-          .avatar-text {
-            font-size: 2.5rem;
+            grid-template-columns: 1fr 1fr;
           }
         }
       `}</style>

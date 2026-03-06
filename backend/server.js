@@ -34,17 +34,53 @@ app.get('/api/portfolio', (req, res) => {
 
 app.get('/api/about', (req, res) => {
   res.json({
-    name: 'Your Name',
-    title: 'Web Developer',
-    bio: 'Welcome to my portfolio! I am a passionate full-stack developer.'
+    name: 'Shawaiz Ali Rehman',
+    title: 'Computer Science Student',
+    location: 'Lahore, Punjab',
+    status: 'Open to full-time roles, internships, and freelance work',
+    bio: 'Computer Science undergraduate at FAST-NUCES with a strong academic record and hands-on experience in software development and teaching. Skilled in C/C++, Python, SQL, and modern web technologies including React and Node.js. Experienced in building web, console, and systems-oriented projects such as reservation platforms, console games, and assembly-based applications. Passionate about problem-solving, clean system design, and growing into a strong software engineer.',
+    stats: [
+      { label: 'GPA', value: '3.9' },
+      { label: 'Projects', value: '6+' },
+      { label: 'Degree', value: 'BSCS' },
+      { label: 'Goal', value: 'Software Engineer' }
+    ],
+    skills: {
+      frontend: ['React', 'Next.js', 'JavaScript', 'HTML/CSS'],
+      backend: ['Node.js', 'Express', 'SQL', 'Supabase', 'PostgreSQL'],
+      tools: ['C++', 'C', 'Python', 'x86 Assembly', 'GitHub', 'Figma']
+    },
+    education: [
+      {
+        year: '2023 - 2027',
+        degree: 'BS Computer Science',
+        school: 'FAST-NUCES, Lahore',
+        note: 'Current GPA: 3.9'
+      },
+      {
+        year: '2021 - 2023',
+        degree: 'A-Levels, Computer Science',
+        school: 'Beaconhouse College Gulberg, Lahore',
+        note: 'Grade: A*'
+      }
+    ],
+    links: {
+      github: 'https://github.com/Shawaiz788',
+      linkedin: 'https://www.linkedin.com/in/shawaiz-ali-rehman-52227427b/',
+      email: 'shawaizali788@gmail.com'
+    },
+    resume: {
+      href: '/resume.pdf',
+      label: 'Download Resume'
+    }
   });
 });
 
 app.get('/api/contact', (req, res) => {
   res.json({
-    email: 'your.email@example.com',
-    github: 'https://github.com/yourprofile',
-    linkedin: 'https://linkedin.com/in/yourprofile'
+    email: 'shawaizali788@gmail.com',
+    github: 'https://github.com/Shawaiz788',
+    linkedin: 'https://www.linkedin.com/in/shawaiz-ali-rehman-52227427b/'
   });
 });
 
