@@ -267,6 +267,7 @@ const Home = () => {
         .content-wrapper {
           max-width: 900px;
           margin: 0 auto;
+          padding-bottom: 280px;
         }
 
         .availability-badge {
@@ -562,6 +563,10 @@ const Home = () => {
         @media (max-width: 768px) {
           .hero-content {
             padding: 0 1.5rem;
+          }
+
+          .content-wrapper {
+            padding-bottom: 320px;
           }
 
           .main-title {

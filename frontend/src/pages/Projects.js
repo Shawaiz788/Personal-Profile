@@ -1,60 +1,107 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import SudokuGame from './SudokuGame';
+import React, { useState } from 'react';
 import BingoGame from './BingoGame';
-import { FiArrowRight, FiGithub, FiExternalLink } from 'react-icons/fi';
+import SudokuGame from './SudokuGame';
+import { FiArrowRight, FiCode, FiDownload, FiPlay, FiStar } from 'react-icons/fi';
 
-const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [filter, setFilter] = useState('all');
+const portfolioProjects = [
+  {
+    id: 'sudoku',
+    title: 'Sudoku Game',
+    tagline: 'Interactive browser project',
+    description: 'A Sudoku experience rooted in low-level programming work, presented inside the portfolio as a playable project with a focused game view.',
+    technologies: ['x86 Assembly', 'DOS', 'Interactive UI'],
+    icon: '🎮',
+    gradient: 'linear-gradient(135deg, #5b8cff 0%, #6d4aff 100%)',
+    categories: ['interactive'],
+    actions: [
+      {
+        kind: 'play',
+        label: 'Open Project'
+      }
+    ]
+  },
+  {
+    id: 'bingo',
+    title: 'Bingo Game',
+    tagline: 'C++ project adapted for the web',
+    description: 'A two-player Bingo system originally written in C++, now presented in the portfolio with a browser version, source download, and project write-up.',
+    technologies: ['C++', 'Game Logic', 'Browser Adaptation'],
+    icon: '🟡',
+    gradient: 'linear-gradient(135deg, #ff8a3d 0%, #ffd166 100%)',
+    categories: ['interactive', 'cpp'],
+    actions: [
+      {
+        kind: 'play',
+        label: 'Play on Site'
+      },
+      {
+        kind: 'download',
+        label: 'Download C++',
+        href: '/BINGO.cpp',
+        fileName: 'BINGO.cpp'
+      }
+    ]
+  },
+  {
+    id: 'fitness-cpp',
+    title: 'Fitness Tracker Console App',
+    tagline: 'Windows console application',
+    description: 'A fitness-focused C++ console application with user accounts, personal info management, workout guidance, progress tracking, and file-based persistence.',
+    technologies: ['C++', 'OOP', 'Windows Console', 'File Handling'],
+    icon: '🏋️',
+    gradient: 'linear-gradient(135deg, #00a896 0%, #4dd7a8 100%)',
+    categories: ['cpp'],
+    actions: [
+      {
+        kind: 'download',
+        label: 'Download C++',
+        href: '/fitness.cpp',
+        fileName: 'fitness.cpp'
+      }
+    ]
+  },
+  {
+    id: 'bank-cpp',
+    title: 'Banking System Prototype',
+    tagline: 'Object-oriented systems project',
+    description: 'A C++ banking system prototype structured around users, cards, transactions, fraud status checks, and account tiers, showing class design and file-driven workflows.',
+    technologies: ['C++', 'System Design', 'Transactions', 'OOP Modeling'],
+    icon: '🏦',
+    gradient: 'linear-gradient(135deg, #ef476f 0%, #ff7b54 100%)',
+    categories: ['cpp'],
+    actions: [
+      {
+        kind: 'download',
+        label: 'Download C++',
+        href: '/bank.cpp',
+        fileName: 'bank.cpp'
+      }
+    ]
+  }
+];
 
-  useEffect(() => {
-    axios.get('/api/portfolio')
-      .then(res => {
-        setProjects(res.data.projects);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching projects:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+function ActionButton({ action, onPlay }) {
+  if (action.kind === 'play') {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Loading projects...</p>
-        <style jsx>{`
-          .loading-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #0a0a0a;
-            color: white;
-          }
-          .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255,255,255,0.1);
-            border-radius: 50%;
-            border-top-color: #667eea;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 1rem;
-          }
-          @keyframes spin {
-            to { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
+      <button type="button" className="action-button primary" onClick={onPlay}>
+        <FiPlay />
+        {action.label}
+      </button>
     );
   }
 
-  // Show Sudoku Game if selected
+  return (
+    <a className="action-button secondary" href={action.href} download={action.fileName}>
+      <FiDownload />
+      {action.label}
+    </a>
+  );
+}
+
+const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [filter, setFilter] = useState('all');
+
   if (selectedProject === 'sudoku') {
     return (
       <div className="game-container">
@@ -88,7 +135,6 @@ const Projects = () => {
     );
   }
 
-  // Show Bingo Game if selected
   if (selectedProject === 'bingo') {
     return (
       <div className="game-container">
@@ -122,29 +168,16 @@ const Projects = () => {
     );
   }
 
-  // Featured projects (your custom games)
-  const featuredProjects = [
-    {
-      id: 'sudoku',
-      title: 'Sudoku Game',
-      description: 'An interactive Sudoku game built entirely in x86 Assembly language. Features multiple difficulty levels, real-time validation, notes mode, and a scoring system.',
-      technologies: ['x86 Assembly', 'DOS', 'Low-Level Programming'],
-      icon: '🎮',
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-    },
-    {
-      id: 'bingo',
-      title: 'Bingo Game',
-      description: 'Classic Bingo for two players, written in modern C++ and running in your browser via WebAssembly. Features save/resume, high scores, and more!',
-      technologies: ['C++', 'WebAssembly', 'Modern UI'],
-      icon: '🟡',
-      gradient: 'linear-gradient(135deg, #ff6b6b 0%, #feca57 100%)'
+  const visibleProjects = portfolioProjects.filter((project) => {
+    if (filter === 'all') {
+      return true;
     }
-  ];
+
+    return project.categories.includes(filter);
+  });
 
   return (
     <div className="projects-container">
-      {/* Animated Background */}
       <div className="background">
         <div className="gradient-orb orb-1"></div>
         <div className="gradient-orb orb-2"></div>
@@ -152,104 +185,97 @@ const Projects = () => {
         <div className="grid-overlay"></div>
       </div>
 
-      {/* Floating Elements */}
       <div className="floating-elements">
         <div className="floating-shape shape-1"></div>
         <div className="floating-shape shape-2"></div>
         <div className="floating-shape shape-3"></div>
-        <div className="code-snippet">{"<Projects />"}</div>
-        <div className="code-snippet-2">{"{Code}"}</div>
+        <div className="code-snippet">{'{ C++ Projects }'}</div>
+        <div className="code-snippet-2">{'<Portfolio />'}</div>
       </div>
 
-      {/* Main Content */}
       <div className="content">
-        {/* Header Section */}
         <div className="header">
           <div className="availability-badge">
             <span className="dot"></span>
-            Featured Work
+            Curated Portfolio Work
           </div>
-          
+
           <h1 className="title">
-            My <span className="gradient-text">Projects</span>
+            Selected <span className="gradient-text">Projects</span>
           </h1>
-          
+
           <p className="subtitle">
-            A collection of my work, from low-level assembly games to modern web applications.
-            Each project represents a unique challenge and learning experience.
+            A focused showcase of interactive builds and C++ console applications. Play the browser-ready projects on site, or download the original source files directly from the portfolio.
           </p>
 
-          {/* Filter Tabs */}
           <div className="filter-tabs">
-            <button 
+            <button
               className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
               onClick={() => setFilter('all')}
             >
-              All Projects
+              All Work
             </button>
-            <button 
-              className={`filter-tab ${filter === 'featured' ? 'active' : ''}`}
-              onClick={() => setFilter('featured')}
+            <button
+              className={`filter-tab ${filter === 'interactive' ? 'active' : ''}`}
+              onClick={() => setFilter('interactive')}
             >
-              Featured
+              Interactive
             </button>
-            <button 
-              className={`filter-tab ${filter === 'web' ? 'active' : ''}`}
-              onClick={() => setFilter('web')}
+            <button
+              className={`filter-tab ${filter === 'cpp' ? 'active' : ''}`}
+              onClick={() => setFilter('cpp')}
             >
-              Web Dev
+              C++ Source
             </button>
           </div>
         </div>
 
-        {/* Projects Grid */}
         <div className="projects-grid">
-          {/* Featured Game Cards */}
-          {(filter === 'all' || filter === 'featured') && featuredProjects.map(project => (
-            <div 
+          {visibleProjects.map((project) => (
+            <div
               key={project.id}
-              className="project-card featured"
-              onClick={() => setSelectedProject(project.id)}
+              className="project-card"
               style={{ '--card-gradient': project.gradient }}
             >
+              <div className="card-shell"></div>
               <div className="card-content">
-                <div className="card-icon">{project.icon}</div>
-                <h3 className="card-title">{project.title}</h3>
-                <p className="card-description">{project.description}</p>
-                <div className="tech-stack">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="tech-tag">{tech}</span>
-                  ))}
+                <div className="card-topline">
+                  <div className="card-icon">{project.icon}</div>
+                  <div className="project-badge">
+                    {project.categories.includes('interactive') ? <FiStar /> : <FiCode />}
+                    {project.tagline}
+                  </div>
                 </div>
-                <div className="card-footer">
-                  <span className="play-link">
-                    Play Game <FiArrowRight className="link-icon" />
-                  </span>
-                </div>
-              </div>
-              <div className="card-glow"></div>
-            </div>
-          ))}
 
-          {/* API Projects */}
-          {(filter === 'all' || filter === 'web') && projects.map(project => (
-            <div key={project.id} className="project-card">
-              <div className="card-content">
                 <h3 className="card-title">{project.title}</h3>
                 <p className="card-description">{project.description}</p>
+
                 <div className="tech-stack">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="tech-tag">{tech}</span>
+                  {project.technologies.map((tech) => (
+                    <span key={tech} className="tech-tag">{tech}</span>
                   ))}
                 </div>
+
                 <div className="card-footer">
-                  <div className="project-links">
-                    <a href="#" className="project-link">
-                      <FiGithub />
-                    </a>
-                    <a href="#" className="project-link">
-                      <FiExternalLink />
-                    </a>
+                  <div className="action-group">
+                    {project.actions.map((action) => (
+                      <ActionButton
+                        key={`${project.id}-${action.label}`}
+                        action={action}
+                        onPlay={() => setSelectedProject(project.id)}
+                      />
+                    ))}
+                  </div>
+                  <div className="card-hint">
+                    {project.categories.includes('interactive') ? (
+                      <span className="hint-text">
+                        Open on site <FiArrowRight className="link-icon" />
+                      </span>
+                    ) : (
+                      <span className="hint-text">
+                        Download source <FiArrowRight className="link-icon" />
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -257,11 +283,13 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* View More CTA */}
         <div className="cta-section">
-          <button className="cta-button">
-            View All Projects <FiArrowRight className="button-icon" />
-          </button>
+          <div className="cta-panel">
+            <h2>What These Projects Show</h2>
+            <p>
+              This selection highlights low-level problem solving, object-oriented C++ design, console application structure, file-based persistence, and the ability to adapt native ideas into a cleaner web presentation.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -270,19 +298,15 @@ const Projects = () => {
           min-height: 100vh;
           width: 100%;
           position: relative;
-          background: #0a0a0a;
+          background: #05070d;
           color: white;
           overflow: hidden;
           padding: 6rem 2rem;
         }
 
-        /* Animated Background */
         .background {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           z-index: 1;
         }
 
@@ -290,64 +314,56 @@ const Projects = () => {
           position: absolute;
           border-radius: 50%;
           filter: blur(80px);
-          opacity: 0.4;
+          opacity: 0.38;
         }
 
         .orb-1 {
-          width: 600px;
-          height: 600px;
-          background: radial-gradient(circle, #667eea 0%, transparent 70%);
-          top: -200px;
-          right: -200px;
-          animation: float 20s ease-in-out infinite;
+          width: 620px;
+          height: 620px;
+          background: radial-gradient(circle, rgba(91, 140, 255, 0.9) 0%, transparent 70%);
+          top: -220px;
+          right: -180px;
+          animation: float 18s ease-in-out infinite;
         }
 
         .orb-2 {
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, #764ba2 0%, transparent 70%);
-          bottom: -150px;
-          left: -150px;
-          animation: float 15s ease-in-out infinite reverse;
+          width: 520px;
+          height: 520px;
+          background: radial-gradient(circle, rgba(255, 127, 80, 0.8) 0%, transparent 70%);
+          bottom: -140px;
+          left: -140px;
+          animation: float 16s ease-in-out infinite reverse;
         }
 
         .orb-3 {
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, #ff6b6b 0%, transparent 70%);
-          top: 50%;
-          left: 50%;
+          width: 420px;
+          height: 420px;
+          background: radial-gradient(circle, rgba(0, 168, 150, 0.7) 0%, transparent 72%);
+          top: 42%;
+          left: 52%;
           transform: translate(-50%, -50%);
-          animation: float 18s ease-in-out infinite;
+          animation: float 20s ease-in-out infinite;
         }
 
         .grid-overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-          background-size: 50px 50px;
-          z-index: 2;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+          background-size: 54px 54px;
         }
 
-        /* Floating Elements */
         .floating-elements {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           z-index: 3;
           pointer-events: none;
         }
 
         .floating-shape {
           position: absolute;
-          border: 2px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 50%;
         }
 
@@ -360,21 +376,21 @@ const Projects = () => {
         }
 
         .shape-2 {
-          width: 200px;
-          height: 200px;
-          bottom: 20%;
-          right: 15%;
+          width: 220px;
+          height: 220px;
+          bottom: 18%;
+          right: 12%;
           border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-          animation: floatShape 20s linear infinite reverse;
+          animation: floatShape 19s linear infinite reverse;
         }
 
         .shape-3 {
-          width: 150px;
-          height: 150px;
-          top: 40%;
-          right: 25%;
+          width: 160px;
+          height: 160px;
+          top: 42%;
+          right: 24%;
           border-radius: 50% 50% 30% 70% / 50% 30% 70% 50%;
-          animation: floatShape 15s linear infinite;
+          animation: floatShape 14s linear infinite;
         }
 
         .code-snippet,
@@ -382,27 +398,26 @@ const Projects = () => {
           position: absolute;
           font-family: monospace;
           font-size: 1rem;
-          padding: 0.5rem 1rem;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(5px);
-          border-radius: 8px;
+          padding: 0.55rem 1rem;
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(8px);
+          border-radius: 999px;
           color: rgba(255, 255, 255, 0.5);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .code-snippet {
-          top: 25%;
-          right: 20%;
+          top: 24%;
+          right: 18%;
           animation: float 6s ease-in-out infinite;
         }
 
         .code-snippet-2 {
-          bottom: 30%;
-          left: 15%;
+          bottom: 28%;
+          left: 14%;
           animation: float 7s ease-in-out infinite reverse;
         }
 
-        /* Main Content */
         .content {
           position: relative;
           z-index: 10;
@@ -410,7 +425,6 @@ const Projects = () => {
           margin: 0 auto;
         }
 
-        /* Header Section */
         .header {
           text-align: center;
           margin-bottom: 4rem;
@@ -420,13 +434,13 @@ const Projects = () => {
           display: inline-flex;
           align-items: center;
           gap: 0.75rem;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.08);
           backdrop-filter: blur(10px);
           padding: 0.75rem 1.5rem;
           border-radius: 50px;
           margin-bottom: 2rem;
           font-size: 0.95rem;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.14);
         }
 
         .dot {
@@ -438,44 +452,44 @@ const Projects = () => {
         }
 
         .title {
-          font-size: clamp(2.5rem, 6vw, 4rem);
+          font-size: clamp(2.5rem, 6vw, 4.2rem);
           font-weight: 800;
           margin-bottom: 1.5rem;
         }
 
         .gradient-text {
-          background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
+          background: linear-gradient(135deg, #5b8cff, #00a896, #ffd166, #ff7b54);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          background-size: 200% 200%;
+          background-size: 220% 220%;
           animation: gradientShift 8s ease infinite;
         }
 
         .subtitle {
-          font-size: 1.1rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.7);
-          max-width: 600px;
+          font-size: 1.08rem;
+          line-height: 1.9;
+          color: rgba(255, 255, 255, 0.72);
+          max-width: 760px;
           margin: 0 auto 2.5rem;
         }
 
-        /* Filter Tabs */
         .filter-tabs {
           display: flex;
           gap: 1rem;
           justify-content: center;
+          flex-wrap: wrap;
         }
 
         .filter-tab {
           background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.7);
-          padding: 0.75rem 1.5rem;
-          border-radius: 50px;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: rgba(255, 255, 255, 0.72);
+          padding: 0.8rem 1.5rem;
+          border-radius: 999px;
           font-size: 0.95rem;
-          font-weight: 500;
+          font-weight: 600;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease;
         }
 
         .filter-tab:hover {
@@ -489,186 +503,200 @@ const Projects = () => {
           border-color: white;
         }
 
-        /* Projects Grid */
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
           gap: 2rem;
           margin: 3rem 0;
         }
 
-        /* Project Card */
         .project-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 24px;
-          overflow: hidden;
-          cursor: pointer;
-          transition: all 0.3s ease;
           position: relative;
+          border-radius: 28px;
+          overflow: hidden;
+          min-height: 380px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+          transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
         }
 
         .project-card:hover {
-          transform: translateY(-5px);
-          border-color: rgba(255, 255, 255, 0.2);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+          transform: translateY(-6px);
+          border-color: rgba(255, 255, 255, 0.16);
+          box-shadow: 0 30px 55px rgba(0, 0, 0, 0.38);
         }
 
-        .project-card.featured {
+        .card-shell {
+          position: absolute;
+          inset: 0;
           background: var(--card-gradient);
-          border: none;
-        }
-
-        .project-card.featured .card-content {
-          background: rgba(10, 10, 10, 0.6);
-          backdrop-filter: blur(10px);
-          height: 100%;
+          opacity: 0.92;
         }
 
         .card-content {
-          padding: 2rem;
           position: relative;
-          z-index: 2;
+          z-index: 1;
           height: 100%;
           display: flex;
           flex-direction: column;
+          padding: 2rem;
+          background: linear-gradient(180deg, rgba(8, 10, 18, 0.56), rgba(8, 10, 18, 0.84));
+          backdrop-filter: blur(10px);
+        }
+
+        .card-topline {
+          display: flex;
+          justify-content: space-between;
+          gap: 1rem;
+          align-items: flex-start;
+          margin-bottom: 1.25rem;
         }
 
         .card-icon {
-          font-size: 2.5rem;
-          margin-bottom: 1rem;
+          font-size: 2.4rem;
+        }
+
+        .project-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.55rem 0.9rem;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 0.8rem;
+          font-weight: 600;
         }
 
         .card-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          margin-bottom: 1rem;
+          font-size: 1.55rem;
+          font-weight: 750;
+          margin-bottom: 0.9rem;
           color: white;
         }
 
         .card-description {
-          font-size: 0.95rem;
-          line-height: 1.6;
-          color: rgba(255, 255, 255, 0.8);
-          margin-bottom: 1.5rem;
+          font-size: 0.98rem;
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.82);
+          margin-bottom: 1.4rem;
           flex: 1;
         }
 
         .tech-stack {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.5rem;
+          gap: 0.55rem;
           margin-bottom: 1.5rem;
         }
 
         .tech-tag {
           background: rgba(255, 255, 255, 0.1);
-          padding: 0.35rem 0.75rem;
-          border-radius: 50px;
+          padding: 0.4rem 0.78rem;
+          border-radius: 999px;
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.9);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 0.92);
+          border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .card-footer {
           display: flex;
-          justify-content: space-between;
-          align-items: center;
+          flex-direction: column;
+          gap: 1rem;
           margin-top: auto;
         }
 
-        .play-link {
+        .action-group {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+
+        .action-button {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
-          color: white;
-          font-weight: 600;
-          font-size: 0.95rem;
+          justify-content: center;
+          gap: 0.55rem;
+          min-height: 46px;
+          padding: 0.75rem 1.15rem;
+          border-radius: 999px;
+          text-decoration: none;
+          font-weight: 700;
+          transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
         }
 
-        .link-icon {
-          transition: transform 0.3s ease;
-        }
-
-        .play-link:hover .link-icon {
-          transform: translateX(5px);
-        }
-
-        .project-links {
-          display: flex;
-          gap: 1rem;
-        }
-
-        .project-link {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 1.25rem;
-          transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-          color: white;
+        .action-button:hover {
           transform: translateY(-2px);
         }
 
-        .card-glow {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.2), transparent 70%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
+        .action-button.primary {
+          border: none;
+          background: #ffffff;
+          color: #111318;
+          cursor: pointer;
         }
 
-        .project-card:hover .card-glow {
-          opacity: 1;
+        .action-button.secondary {
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          background: rgba(255, 255, 255, 0.08);
+          color: white;
         }
 
-        /* CTA Section */
+        .card-hint {
+          color: rgba(255, 255, 255, 0.78);
+          font-size: 0.92rem;
+          font-weight: 600;
+        }
+
+        .hint-text {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+        }
+
+        .link-icon {
+          transition: transform 0.25s ease;
+        }
+
+        .project-card:hover .link-icon {
+          transform: translateX(4px);
+        }
+
         .cta-section {
           display: flex;
           justify-content: center;
           margin-top: 4rem;
         }
 
-        .cta-button {
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: white;
-          padding: 1rem 2.5rem;
-          border-radius: 50px;
-          font-size: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
+        .cta-panel {
+          max-width: 900px;
+          text-align: center;
+          padding: 2rem 2.25rem;
+          border-radius: 28px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
         }
 
-        .cta-button:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
+        .cta-panel h2 {
+          margin: 0 0 1rem;
+          font-size: 1.8rem;
         }
 
-        .button-icon {
-          transition: transform 0.3s ease;
+        .cta-panel p {
+          margin: 0;
+          color: rgba(255, 255, 255, 0.72);
+          line-height: 1.8;
         }
 
-        .cta-button:hover .button-icon {
-          transform: translateX(5px);
-        }
-
-        /* Animations */
         @keyframes float {
           0%, 100% {
             transform: translateY(0) rotate(0deg);
           }
           50% {
-            transform: translateY(-30px) rotate(5deg);
+            transform: translateY(-26px) rotate(4deg);
           }
         }
 
@@ -707,7 +735,6 @@ const Projects = () => {
           }
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
           .projects-container {
             padding: 4rem 1rem;
@@ -717,18 +744,21 @@ const Projects = () => {
             grid-template-columns: 1fr;
           }
 
-          .filter-tabs {
-            flex-direction: column;
-            padding: 0 2rem;
-          }
-
           .title {
-            font-size: 2rem;
+            font-size: 2.2rem;
           }
 
           .subtitle {
             font-size: 1rem;
-            padding: 0 1rem;
+          }
+
+          .card-content {
+            padding: 1.5rem;
+          }
+
+          .card-topline {
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
       `}</style>

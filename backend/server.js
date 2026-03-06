@@ -1,6 +1,8 @@
+
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -46,10 +48,35 @@ app.get('/api/contact', (req, res) => {
   });
 });
 
-app.post('/api/contact', (req, res) => {
+
+app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
   console.log('Contact form submission:', { name, email, message });
-  res.json({ success: true, message: 'Message received!' });
+
+  // Create transporter
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
+    }
+  });
+
+  // Email options
+  const mailOptions = {
+    from: process.env.GMAIL_USER,
+    to: process.env.GMAIL_USER, // send to yourself
+    subject: `Portfolio Contact Form: ${name}`,
+    text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true, message: 'Message sent successfully!' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ success: false, message: 'Failed to send message.' });
+  }
 });
 
 // Error handling
