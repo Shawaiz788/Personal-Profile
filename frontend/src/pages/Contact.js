@@ -225,11 +225,11 @@ const Contact = () => {
             <div className="location-pin">📍</div>
             <div className="location-info">
               <span className="location-label">Based in</span>
-              <span className="location-value">Your City, Country</span>
+              <span className="location-value">Lahore, Pakistan</span>
             </div>
             <div className="timezone">
               <span className="timezone-label">Timezone</span>
-              <span className="timezone-value">GMT+0 (UTC)</span>
+              <span className="timezone-value">GMT+5 (PKT)</span>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiArrowRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
-const Home = () => {
+const Home = ({ setCurrentPage }) => {
   return (
     <div className="home-container">
       {/* Main Hero Section - Full Screen */}
@@ -44,13 +44,13 @@ const Home = () => {
 
             {/* Description */}
             <p className="description">
-              I'm a Computer Science student at FAST-NUCES who enjoys building thoughtful web and systems projects.
-              I am working toward becoming a software engineer through hands-on development in C++, Python, React, Node.js, and database-driven applications.
+              I'm a Computer Science student at FAST-NUCES in Lahore who enjoys building clean, user-first products across web, mobile, and systems.
+              I turn ideas into reliable experiences with React, Node.js, Java, C++, and database-driven apps.
             </p>
 
             {/* CTA Buttons */}
             <div className="cta-buttons">
-              <button className="btn btn-secondary">
+              <button className="btn btn-secondary" onClick={() => setCurrentPage('contact')}>
                 Contact Me
               </button>
             </div>
@@ -58,13 +58,29 @@ const Home = () => {
             {/* Social Links */}
             <div className="social-section">
               <div className="social-links">
-                <a href="#" className="social-link" aria-label="GitHub">
+                <a
+                  href="https://github.com/Shawaiz788?tab=repositories"
+                  className="social-link"
+                  aria-label="GitHub"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FiGithub />
                 </a>
-                <a href="#" className="social-link" aria-label="LinkedIn">
+                <a
+                  href="https://www.linkedin.com/in/shawaiz-ali-rehman-52227427b/"
+                  className="social-link"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FiLinkedin />
                 </a>
-                <a href="#" className="social-link" aria-label="Email">
+                <a
+                  href="mailto:shawaizali788@gmail.com"
+                  className="social-link"
+                  aria-label="Email"
+                >
                   <FiMail />
                 </a>
               </div>
@@ -91,8 +107,8 @@ const Home = () => {
             </div>
           </div>
           {/* Move View My Work button below stats */}
-          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
-            <button className="btn btn-primary">
+          <div className="stats-cta">
+            <button className="btn btn-primary" onClick={() => setCurrentPage('projects')}>
               View My Work <FiArrowRight className="btn-icon" />
             </button>
           </div>
@@ -399,6 +415,8 @@ const Home = () => {
           z-index: 10;
           display: flex;
           justify-content: center;
+          align-items: center;
+          gap: 2rem;
           animation: slideUp 0.8s ease-out 1s both;
         }
 
@@ -411,6 +429,12 @@ const Home = () => {
           backdrop-filter: blur(10px);
           border-radius: 100px;
           border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-cta {
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .stat-card {
@@ -567,7 +591,7 @@ const Home = () => {
           }
 
           .content-wrapper {
-            padding-bottom: 320px;
+            padding-bottom: 2rem;
           }
 
           .main-title {
@@ -583,8 +607,11 @@ const Home = () => {
           }
 
           .stats-wrapper {
-            bottom: 80px;
+            position: static;
+            margin-top: 2rem;
             padding: 0 1rem;
+            width: 100%;
+            flex-direction: column;
           }
 
           .stats-container {
@@ -602,6 +629,10 @@ const Home = () => {
 
           .floating-elements {
             opacity: 0.3;
+          }
+
+          .scroll-indicator {
+            display: none;
           }
         }
       `}</style>

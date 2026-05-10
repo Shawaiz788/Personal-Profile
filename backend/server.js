@@ -36,9 +36,9 @@ app.get('/api/about', (req, res) => {
   res.json({
     name: 'Shawaiz Ali Rehman',
     title: 'Computer Science Student',
-    location: 'Lahore, Punjab',
+    location: 'Lahore, Pakistan',
     status: 'Open to full-time roles, internships, and freelance work',
-    bio: 'Computer Science undergraduate at FAST-NUCES with a strong academic record and hands-on experience in software development and teaching. Skilled in C/C++, Python, SQL, and modern web technologies including React and Node.js. Experienced in building web, console, and systems-oriented projects such as reservation platforms, console games, and assembly-based applications. Passionate about problem-solving, clean system design, and growing into a strong software engineer.',
+    bio: 'Computer Science undergraduate at FAST-NUCES with a strong academic record and hands-on experience across web, mobile, and systems development. I build practical products in React, Node.js, Java, and C++ with a focus on clean architecture, performance, and user experience. My work spans reservation platforms, console games, and assembly-based applications, and I am growing into a well-rounded software engineer who ships reliable, thoughtful software.',
     stats: [
       { label: 'GPA', value: '3.9' },
       { label: 'Projects', value: '6+' },
@@ -46,9 +46,9 @@ app.get('/api/about', (req, res) => {
       { label: 'Goal', value: 'Software Engineer' }
     ],
     skills: {
-      frontend: ['React', 'Next.js', 'JavaScript', 'HTML/CSS'],
-      backend: ['Node.js', 'Express', 'SQL', 'Supabase', 'PostgreSQL'],
-      tools: ['C++', 'C', 'Python', 'x86 Assembly', 'GitHub', 'Figma']
+      frontend: ['React', 'Next.js', 'JavaScript', 'HTML/CSS', 'Java', 'XML'],
+      backend: ['Node.js', 'Express', 'SQL', 'Supabase', 'PostgreSQL', 'Java', 'Firebase'],
+      tools: ['Android Studio', 'C++', 'C', 'Python', 'x86 Assembly', 'GitHub', 'Figma']
     },
     education: [
       {
