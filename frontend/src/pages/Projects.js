@@ -1,15 +1,67 @@
 import React, { useState } from 'react';
 import BingoGame from './BingoGame';
 import SudokuGame from './SudokuGame';
-import { FiArrowRight, FiCode, FiDownload, FiExternalLink, FiPlay, FiStar } from 'react-icons/fi';
+import TiltCard from '../components/TiltCard';
+import { FiCode, FiDownload, FiExternalLink, FiPlay, FiArrowLeft, FiSmartphone } from 'react-icons/fi';
 
 const portfolioProjects = [
   {
+    id: 'kaamkarwao',
+    title: 'KaamKarwao',
+    tagline: 'Mobile Service Marketplace',
+    description: 'A feature-packed mobile service booking platform connecting service seekers with skilled workers, featuring user authentication, booking workflows, real-time status tracking, and intuitive UI.',
+    technologies: ['React Native', 'Mobile Dev', 'JavaScript', 'Node.js', 'Firebase/API'],
+    icon: '🛠️',
+    gradient: 'linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%)',
+    categories: ['mobile', 'fullstack'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/KaamKarwao'
+      }
+    ]
+  },
+  {
+    id: 'music-streaming',
+    title: 'Android Music Streaming',
+    tagline: 'Native Android Audio App',
+    description: 'A native Android music player and streaming starter application built with Java, Android SDK, and Media3/ExoPlayer featuring background audio services, playback controls, and modern Material UI.',
+    technologies: ['Android Studio', 'Java', 'Android SDK', 'ExoPlayer / Media3', 'Material Design'],
+    icon: '🎵',
+    gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+    categories: ['mobile'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/android-music-streaming-starter'
+      }
+    ]
+  },
+  {
+    id: 'neem-bert-hakeem',
+    title: 'Neem-Bert-Hakeem',
+    tagline: 'AI & NLP Healthcare Assistant',
+    description: 'An AI-powered healthcare & herbal consultation system utilizing fine-tuned BERT models for natural language medical QA, symptom evaluation, and personalized advice.',
+    technologies: ['Python', 'BERT / Transformers', 'NLP / AI', 'Flask / FastAPI', 'Machine Learning'],
+    icon: '🌿',
+    gradient: 'linear-gradient(135deg, #42e695 0%, #3bb2b8 100%)',
+    categories: ['fullstack'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/Neem-Bert-Hakeem'
+      }
+    ]
+  },
+  {
     id: 'sudoku',
     title: 'Sudoku Game',
-    tagline: 'Interactive browser project',
-    description: 'A Sudoku experience rooted in low-level programming work, presented inside the portfolio as a playable project with a focused game view.',
-    technologies: ['x86 Assembly', 'DOS', 'Interactive UI'],
+    tagline: 'Interactive Browser & Assembly Project',
+    description: 'A Sudoku experience rooted in low-level x86 programming, presented inside the portfolio as an interactive playable browser application.',
+    technologies: ['x86 Assembly', 'DOS', 'Interactive UI', 'JavaScript'],
     icon: '🎮',
     gradient: 'linear-gradient(135deg, #5b8cff 0%, #6d4aff 100%)',
     categories: ['interactive'],
@@ -17,6 +69,57 @@ const portfolioProjects = [
       {
         kind: 'play',
         label: 'Open Project'
+      }
+    ]
+  },
+  {
+    id: 'rn-camera',
+    title: 'React Native Camera App',
+    tagline: 'Native Mobile Camera & Gallery',
+    description: 'A mobile camera application engineered with React Native and native device vision modules, supporting high-resolution image capture, filter previews, camera permission handling, and image gallery management.',
+    technologies: ['React Native', 'Mobile Dev', 'VisionCamera', 'JavaScript', 'iOS / Android'],
+    icon: '📷',
+    gradient: 'linear-gradient(135deg, #8a2be2 0%, #4a00e0 100%)',
+    categories: ['mobile'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/ReactNative-Camera-App'
+      }
+    ]
+  },
+  {
+    id: 'firetv-podcast',
+    title: 'FireTV Podcast App (VegaOS)',
+    tagline: 'Smart TV & FireTV React Native App',
+    description: 'Cross-platform podcast streaming application custom-tailored for Amazon FireTV and VegaOS TV interfaces, featuring D-pad remote navigation, background audio streaming, and leanback TV UI.',
+    technologies: ['React Native', 'Expo', 'FireTV / Smart TV', 'VegaOS', 'JavaScript'],
+    icon: '📺',
+    gradient: 'linear-gradient(135deg, #ff4e50 0%, #f9d423 100%)',
+    categories: ['mobile'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/Expo-VegaOs-Podcast-FireTV-App'
+      }
+    ]
+  },
+  {
+    id: 'friendsly',
+    title: 'FriendsLy',
+    tagline: 'Social Networking & Community Platform',
+    description: 'A mobile-first social discovery and community building platform enabling users to match over shared interests, initiate direct messages, and discover local activities.',
+    technologies: ['React Native', 'Mobile Dev', 'Firebase', 'Realtime DB', 'JavaScript'],
+    icon: '👥',
+    gradient: 'linear-gradient(135deg, #f857a6 0%, #ff5858 100%)',
+    categories: ['mobile', 'fullstack'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/FriendsLy'
       }
     ]
   },
@@ -39,6 +142,40 @@ const portfolioProjects = [
         label: 'Download C++',
         href: '/BINGO.cpp',
         fileName: 'BINGO.cpp'
+      }
+    ]
+  },
+  {
+    id: 'codeack',
+    title: 'CodeAck',
+    tagline: 'Competitive programming platform',
+    description: 'A full-stack coding practice platform inspired by modern competitive programming tools, with problem management, submissions, authentication, leaderboard data, and scalable backend structure.',
+    technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Supabase', 'Code Evaluation'],
+    icon: '🧠',
+    gradient: 'linear-gradient(135deg, #7b61ff 0%, #4cc9f0 100%)',
+    categories: ['fullstack'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/AhmedNasir7/Codeack-SDA_Project.git'
+      }
+    ]
+  },
+  {
+    id: 'restaurant-reservation',
+    title: 'Restaurant Reservation System',
+    tagline: 'Full-stack reservation platform',
+    description: 'A reservation management web app built for handling table bookings, customer records, user authentication, and live availability across a restaurant workflow.',
+    technologies: ['React', 'Node.js', 'Express', 'SQL', 'Authentication'],
+    icon: '🍽️',
+    gradient: 'linear-gradient(135deg, #2ec4b6 0%, #1b9aaa 100%)',
+    categories: ['fullstack'],
+    actions: [
+      {
+        kind: 'external',
+        label: 'View Repository',
+        href: 'https://github.com/Shawaiz788/Restaurant-Reservation-System.git'
       }
     ]
   },
@@ -77,66 +214,29 @@ const portfolioProjects = [
         fileName: 'bank.cpp'
       }
     ]
-  },
-  {
-    id: 'restaurant-reservation',
-    title: 'Restaurant Reservation System',
-    tagline: 'Full-stack reservation platform',
-    description: 'A reservation management web app built for handling table bookings, customer records, user authentication, and live availability across a restaurant workflow.',
-    technologies: ['React', 'Node.js', 'Express', 'SQL', 'Authentication'],
-    icon: '🍽️',
-    gradient: 'linear-gradient(135deg, #2ec4b6 0%, #1b9aaa 100%)',
-    categories: ['fullstack'],
-    actions: [
-      {
-        kind: 'external',
-        label: 'View Repository',
-        href: 'https://github.com/Shawaiz788/Restaurant-Reservation-System.git'
-      }
-    ]
-  },
-  {
-    id: 'codeack',
-    title: 'CodeAck',
-    tagline: 'Competitive programming platform',
-    description: 'A full-stack coding practice platform inspired by modern competitive programming tools, with problem management, submissions, authentication, leaderboard data, and scalable backend structure.',
-    technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Supabase', 'Code Evaluation'],
-    icon: '🧠',
-    gradient: 'linear-gradient(135deg, #7b61ff 0%, #4cc9f0 100%)',
-    categories: ['fullstack'],
-    actions: [
-      {
-        kind: 'external',
-        label: 'View Repository',
-        href: 'https://github.com/AhmedNasir7/Codeack-SDA_Project.git'
-      }
-    ]
   }
 ];
 
 function ActionButton({ action, onPlay }) {
   if (action.kind === 'play') {
     return (
-      <button type="button" className="action-button primary" onClick={onPlay}>
-        <FiPlay />
-        {action.label}
+      <button type="button" className="action-btn primary" onClick={onPlay}>
+        <FiPlay /> {action.label}
       </button>
     );
   }
 
   if (action.kind === 'external') {
     return (
-      <a className="action-button secondary" href={action.href} target="_blank" rel="noreferrer">
-        <FiExternalLink />
-        {action.label}
+      <a className="action-btn secondary" href={action.href} target="_blank" rel="noreferrer">
+        <FiExternalLink /> {action.label}
       </a>
     );
   }
 
   return (
-    <a className="action-button secondary" href={action.href} download={action.fileName}>
-      <FiDownload />
-      {action.label}
+    <a className="action-btn secondary" href={action.href} download={action.fileName}>
+      <FiDownload /> {action.label}
     </a>
   );
 }
@@ -147,668 +247,260 @@ const Projects = () => {
 
   if (selectedProject === 'sudoku') {
     return (
-      <div className="game-container">
-        <button className="back-button" onClick={() => setSelectedProject(null)}>
-          ← Back to Projects
+      <div className="game-view-wrapper">
+        <button className="btn btn-secondary back-btn" onClick={() => setSelectedProject(null)}>
+          <FiArrowLeft /> Back to Projects
         </button>
         <SudokuGame />
-        <style jsx>{`
-          .game-container {
-            min-height: 100vh;
-            background: #0a0a0a;
-            padding: 2rem;
-          }
-          .back-button {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-          }
-          .back-button:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(-5px);
-          }
-        `}</style>
       </div>
     );
   }
 
   if (selectedProject === 'bingo') {
     return (
-      <div className="game-container">
-        <button className="back-button" onClick={() => setSelectedProject(null)}>
-          ← Back to Projects
+      <div className="game-view-wrapper">
+        <button className="btn btn-secondary back-btn" onClick={() => setSelectedProject(null)}>
+          <FiArrowLeft /> Back to Projects
         </button>
         <BingoGame />
-        <style jsx>{`
-          .game-container {
-            min-height: 100vh;
-            background: #0a0a0a;
-            padding: 2rem;
-          }
-          .back-button {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-          }
-          .back-button:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(-5px);
-          }
-        `}</style>
       </div>
     );
   }
 
   const visibleProjects = portfolioProjects.filter((project) => {
-    if (filter === 'all') {
-      return true;
-    }
-
+    if (filter === 'all') return true;
     return project.categories.includes(filter);
   });
 
   return (
-    <div className="projects-container">
-      <div className="background">
-        <div className="gradient-orb orb-1"></div>
-        <div className="gradient-orb orb-2"></div>
-        <div className="gradient-orb orb-3"></div>
-        <div className="grid-overlay"></div>
+    <div className="projects-page">
+      <div className="section-badge">
+        <span className="badge-dot"></span> Portfolio Showcase
       </div>
 
-      <div className="floating-elements">
-        <div className="floating-shape shape-1"></div>
-        <div className="floating-shape shape-2"></div>
-        <div className="floating-shape shape-3"></div>
-        <div className="code-snippet">{'{ C++ Projects }'}</div>
-        <div className="code-snippet-2">{'<Portfolio />'}</div>
+      <h1 className="section-title">
+        Featured <span className="gradient-text">Projects</span> & Engineering Work
+      </h1>
+
+      <p className="section-subtitle">
+        A curated collection of mobile applications (React Native, Android Java), AI models, full-stack systems, and interactive games.
+      </p>
+
+      {/* Filter Tabs */}
+      <div className="filter-bar">
+        {[
+          { id: 'all', label: 'All Work' },
+          { id: 'mobile', label: 'Mobile Apps' },
+          { id: 'fullstack', label: 'Full-Stack & AI' },
+          { id: 'interactive', label: 'Interactive' },
+          { id: 'cpp', label: 'C++ Systems' }
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            className={`filter-btn ${filter === tab.id ? 'active' : ''}`}
+            onClick={() => setFilter(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      <div className="content">
-        <div className="header">
-          <div className="availability-badge">
-            <span className="dot"></span>
-            Curated Portfolio Work
-          </div>
-
-          <h1 className="title">
-            Selected <span className="gradient-text">Projects</span>
-          </h1>
-
-          <p className="subtitle">
-            A focused showcase of interactive builds, full-stack applications, and C++ console systems. Play the browser-ready projects on site, explore production-style app concepts, or download the original source files directly from the portfolio.
-          </p>
-
-          <div className="filter-tabs">
-            <button
-              className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
-              onClick={() => setFilter('all')}
-            >
-              All Work
-            </button>
-            <button
-              className={`filter-tab ${filter === 'interactive' ? 'active' : ''}`}
-              onClick={() => setFilter('interactive')}
-            >
-              Interactive
-            </button>
-            <button
-              className={`filter-tab ${filter === 'cpp' ? 'active' : ''}`}
-              onClick={() => setFilter('cpp')}
-            >
-              C++ Source
-            </button>
-            <button
-              className={`filter-tab ${filter === 'fullstack' ? 'active' : ''}`}
-              onClick={() => setFilter('fullstack')}
-            >
-              Full-Stack
-            </button>
-          </div>
-        </div>
-
-        <div className="projects-grid">
-          {visibleProjects.map((project) => (
-            <div
-              key={project.id}
-              className="project-card"
-              style={{ '--card-gradient': project.gradient }}
-            >
-              <div className="card-shell"></div>
-              <div className="card-content">
-                <div className="card-topline">
-                  <div className="card-icon">{project.icon}</div>
-                  <div className="project-badge">
-                    {project.categories.includes('interactive') ? <FiStar /> : <FiCode />}
-                    {project.tagline}
-                  </div>
-                </div>
-
-                <h3 className="card-title">{project.title}</h3>
-                <p className="card-description">{project.description}</p>
-
-                <div className="tech-stack">
-                  {project.technologies.map((tech) => (
-                    <span key={tech} className="tech-tag">{tech}</span>
-                  ))}
-                </div>
-
-                <div className="card-footer">
-                  <div className="action-group">
-                    {project.actions.map((action) => (
-                      <ActionButton
-                        key={`${project.id}-${action.label}`}
-                        action={action}
-                        onPlay={() => setSelectedProject(project.id)}
-                      />
-                    ))}
-                  </div>
-                  <div className="card-hint">
-                    {project.categories.includes('interactive') ? (
-                      <span className="hint-text">
-                        Open on site <FiArrowRight className="link-icon" />
-                      </span>
-                    ) : (
-                      <span className="hint-text">
-                        Download source <FiArrowRight className="link-icon" />
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+      {/* Projects Grid */}
+      <div className="projects-grid">
+        {visibleProjects.map((project) => (
+          <TiltCard key={project.id} className="project-card">
+            <div className="card-top">
+              <div className="project-icon">{project.icon}</div>
+              <span className="tagline-chip">
+                {project.categories.includes('mobile') ? <FiSmartphone /> : <FiCode />}
+                {project.tagline}
+              </span>
             </div>
-          ))}
-        </div>
 
-        <div className="cta-section">
-          <div className="cta-panel">
-            <h2>What These Projects Show</h2>
-            <p>
-              This selection highlights low-level problem solving, object-oriented C++ design, console application structure, file-based persistence, and the ability to adapt native ideas into a cleaner web presentation.
-            </p>
-          </div>
-        </div>
+            <h3 className="project-title">{project.title}</h3>
+            <p className="project-desc">{project.description}</p>
+
+            <div className="tech-tags">
+              {project.technologies.map((tech) => (
+                <span key={tech} className="tech-chip">{tech}</span>
+              ))}
+            </div>
+
+            <div className="card-actions">
+              {project.actions.map((act, idx) => (
+                <ActionButton
+                  key={idx}
+                  action={act}
+                  onPlay={() => setSelectedProject(project.id)}
+                />
+              ))}
+            </div>
+          </TiltCard>
+        ))}
       </div>
 
       <style jsx>{`
-        .projects-container {
-          min-height: 100vh;
-          width: 100%;
-          position: relative;
-          background: #05070d;
-          color: white;
-          overflow: hidden;
-          padding: 6rem 2rem;
-        }
-
-        .background {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-        }
-
-        .gradient-orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.38;
-        }
-
-        .orb-1 {
-          width: 620px;
-          height: 620px;
-          background: radial-gradient(circle, rgba(91, 140, 255, 0.9) 0%, transparent 70%);
-          top: -220px;
-          right: -180px;
-          animation: float 18s ease-in-out infinite;
-        }
-
-        .orb-2 {
-          width: 520px;
-          height: 520px;
-          background: radial-gradient(circle, rgba(255, 127, 80, 0.8) 0%, transparent 70%);
-          bottom: -140px;
-          left: -140px;
-          animation: float 16s ease-in-out infinite reverse;
-        }
-
-        .orb-3 {
-          width: 420px;
-          height: 420px;
-          background: radial-gradient(circle, rgba(0, 168, 150, 0.7) 0%, transparent 72%);
-          top: 42%;
-          left: 52%;
-          transform: translate(-50%, -50%);
-          animation: float 20s ease-in-out infinite;
-        }
-
-        .grid-overlay {
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-          background-size: 54px 54px;
-        }
-
-        .floating-elements {
-          position: absolute;
-          inset: 0;
-          z-index: 3;
-          pointer-events: none;
-        }
-
-        .floating-shape {
-          position: absolute;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 50%;
-        }
-
-        .shape-1 {
-          width: 300px;
-          height: 300px;
-          top: 15%;
-          left: 10%;
-          animation: floatShape 25s linear infinite;
-        }
-
-        .shape-2 {
-          width: 220px;
-          height: 220px;
-          bottom: 18%;
-          right: 12%;
-          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-          animation: floatShape 19s linear infinite reverse;
-        }
-
-        .shape-3 {
-          width: 160px;
-          height: 160px;
-          top: 42%;
-          right: 24%;
-          border-radius: 50% 50% 30% 70% / 50% 30% 70% 50%;
-          animation: floatShape 14s linear infinite;
-        }
-
-        .code-snippet,
-        .code-snippet-2 {
-          position: absolute;
-          font-family: monospace;
-          font-size: 1rem;
-          padding: 0.55rem 1rem;
-          background: rgba(255, 255, 255, 0.08);
-          backdrop-filter: blur(8px);
-          border-radius: 999px;
-          color: rgba(255, 255, 255, 0.5);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .code-snippet {
-          top: 24%;
-          right: 18%;
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .code-snippet-2 {
-          bottom: 28%;
-          left: 14%;
-          animation: float 7s ease-in-out infinite reverse;
-        }
-
-        .content {
-          position: relative;
-          z-index: 10;
-          max-width: 1400px;
-          margin: 0 auto;
-        }
-
-        .header {
-          text-align: center;
-          margin-bottom: 4rem;
-        }
-
-        .availability-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.75rem;
-          background: rgba(255, 255, 255, 0.08);
-          backdrop-filter: blur(10px);
-          padding: 0.75rem 1.5rem;
-          border-radius: 50px;
-          margin-bottom: 2rem;
-          font-size: 0.95rem;
-          border: 1px solid rgba(255, 255, 255, 0.14);
-        }
-
-        .dot {
-          width: 8px;
-          height: 8px;
-          background: #4ade80;
-          border-radius: 50%;
-          animation: pulse 2s infinite;
-        }
-
-        .title {
-          font-size: clamp(2.5rem, 6vw, 4.2rem);
-          font-weight: 800;
-          margin-bottom: 1.5rem;
-        }
-
-        .gradient-text {
-          background: linear-gradient(135deg, #5b8cff, #00a896, #ffd166, #ff7b54);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-size: 220% 220%;
-          animation: gradientShift 8s ease infinite;
-        }
-
-        .subtitle {
-          font-size: 1.08rem;
-          line-height: 1.9;
-          color: rgba(255, 255, 255, 0.72);
-          max-width: 760px;
-          margin: 0 auto 2.5rem;
-        }
-
-        .filter-tabs {
+        .projects-page {
           display: flex;
-          gap: 1rem;
-          justify-content: center;
+          flex-direction: column;
+        }
+
+        .filter-bar {
+          display: flex;
+          gap: 0.5rem;
           flex-wrap: wrap;
+          background: rgba(255, 255, 255, 0.03);
+          padding: 0.4rem;
+          border-radius: 99px;
+          border: 1px solid var(--border-glass);
+          width: fit-content;
+          margin-bottom: 2rem;
         }
 
-        .filter-tab {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          color: rgba(255, 255, 255, 0.72);
-          padding: 0.8rem 1.5rem;
-          border-radius: 999px;
-          font-size: 0.95rem;
-          font-weight: 600;
+        .filter-btn {
+          background: transparent;
+          border: none;
+          color: var(--text-muted);
+          font-family: var(--font-body);
+          font-weight: 500;
+          font-size: 0.875rem;
+          padding: 0.45rem 1.1rem;
+          border-radius: 99px;
           cursor: pointer;
-          transition: all 0.25s ease;
+          transition: all 0.2s ease;
         }
 
-        .filter-tab:hover {
-          background: rgba(255, 255, 255, 0.1);
-          color: white;
+        .filter-btn:hover {
+          color: var(--text-main);
+          background: rgba(255, 255, 255, 0.06);
         }
 
-        .filter-tab.active {
-          background: white;
-          color: #0a0a0a;
-          border-color: white;
+        .filter-btn.active {
+          color: #ffffff;
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(168, 85, 247, 0.8));
         }
 
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 2rem;
-          margin: 3rem 0;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 1.5rem;
         }
 
         .project-card {
-          position: relative;
-          border-radius: 28px;
-          overflow: hidden;
-          min-height: 380px;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
-          transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-        }
-
-        .project-card:hover {
-          transform: translateY(-6px);
-          border-color: rgba(255, 255, 255, 0.16);
-          box-shadow: 0 30px 55px rgba(0, 0, 0, 0.38);
-        }
-
-        .card-shell {
-          position: absolute;
-          inset: 0;
-          background: var(--card-gradient);
-          opacity: 0.92;
-        }
-
-        .card-content {
-          position: relative;
-          z-index: 1;
-          height: 100%;
+          background: var(--bg-card);
+          backdrop-filter: blur(16px);
+          border: 1px solid var(--border-glass);
+          border-radius: 20px;
+          padding: 1.5rem;
           display: flex;
           flex-direction: column;
-          padding: 2rem;
-          background: linear-gradient(180deg, rgba(8, 10, 18, 0.56), rgba(8, 10, 18, 0.84));
-          backdrop-filter: blur(10px);
+          height: 100%;
         }
 
-        .card-topline {
+        .card-top {
           display: flex;
+          align-items: center;
           justify-content: space-between;
-          gap: 1rem;
-          align-items: flex-start;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1rem;
         }
 
-        .card-icon {
-          font-size: 2.4rem;
+        .project-icon {
+          font-size: 1.8rem;
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--border-glass);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .project-badge {
+        .tagline-chip {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
-          padding: 0.55rem 0.9rem;
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 0.8rem;
-          font-weight: 600;
+          gap: 0.35rem;
+          font-size: 0.75rem;
+          color: var(--accent-cyan);
+          background: rgba(6, 182, 212, 0.1);
+          padding: 0.25rem 0.65rem;
+          border-radius: 99px;
+          border: 1px solid rgba(6, 182, 212, 0.25);
         }
 
-        .card-title {
-          font-size: 1.55rem;
-          font-weight: 750;
-          margin-bottom: 0.9rem;
-          color: white;
+        .project-title {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: var(--text-main);
+          margin-bottom: 0.5rem;
         }
 
-        .card-description {
-          font-size: 0.98rem;
-          line-height: 1.7;
-          color: rgba(255, 255, 255, 0.82);
-          margin-bottom: 1.4rem;
+        .project-desc {
+          font-size: 0.875rem;
+          color: var(--text-muted);
+          line-height: 1.55;
+          margin-bottom: 1.25rem;
           flex: 1;
         }
 
-        .tech-stack {
+        .tech-tags {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.55rem;
-          margin-bottom: 1.5rem;
+          gap: 0.4rem;
+          margin-bottom: 1.25rem;
         }
 
-        .tech-tag {
-          background: rgba(255, 255, 255, 0.1);
-          padding: 0.4rem 0.78rem;
-          border-radius: 999px;
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.92);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+        .tech-chip {
+          font-size: 0.75rem;
+          padding: 0.2rem 0.6rem;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--text-main);
+          border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .card-footer {
+        .card-actions {
           display: flex;
-          flex-direction: column;
-          gap: 1rem;
+          gap: 0.6rem;
           margin-top: auto;
         }
 
-        .action-group {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-        }
-
-        .action-button {
+        .action-btn {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          gap: 0.55rem;
-          min-height: 46px;
-          padding: 0.75rem 1.15rem;
-          border-radius: 999px;
-          text-decoration: none;
-          font-weight: 700;
-          transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
-        }
-
-        .action-button:hover {
-          transform: translateY(-2px);
-        }
-
-        .action-button.primary {
-          border: none;
-          background: #ffffff;
-          color: #111318;
-          cursor: pointer;
-        }
-
-        .action-button.secondary {
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          background: rgba(255, 255, 255, 0.08);
-          color: white;
-        }
-
-        .card-hint {
-          color: rgba(255, 255, 255, 0.78);
-          font-size: 0.92rem;
+          gap: 0.4rem;
+          padding: 0.5rem 1rem;
+          border-radius: 99px;
+          font-size: 0.825rem;
           font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border: none;
+          text-decoration: none;
         }
 
-        .hint-text {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.45rem;
+        .action-btn.primary {
+          background: linear-gradient(135deg, #6366f1, #a855f7);
+          color: #ffffff;
         }
 
-        .link-icon {
-          transition: transform 0.25s ease;
-        }
-
-        .project-card:hover .link-icon {
-          transform: translateX(4px);
-        }
-
-        .cta-section {
-          display: flex;
-          justify-content: center;
-          margin-top: 4rem;
-        }
-
-        .cta-panel {
-          max-width: 900px;
-          text-align: center;
-          padding: 2rem 2.25rem;
-          border-radius: 28px;
+        .action-btn.secondary {
           background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
+          color: var(--text-main);
+          border: 1px solid var(--border-glass);
         }
 
-        .cta-panel h2 {
-          margin: 0 0 1rem;
-          font-size: 1.8rem;
+        .action-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
         }
 
-        .cta-panel p {
-          margin: 0;
-          color: rgba(255, 255, 255, 0.72);
-          line-height: 1.8;
+        .game-view-wrapper {
+          padding-top: 1rem;
         }
 
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-26px) rotate(4deg);
-          }
-        }
-
-        @keyframes floatShape {
-          0% {
-            transform: rotate(0deg) translateY(0);
-          }
-          33% {
-            transform: rotate(120deg) translateY(-20px);
-          }
-          66% {
-            transform: rotate(240deg) translateY(20px);
-          }
-          100% {
-            transform: rotate(360deg) translateY(0);
-          }
-        }
-
-        @keyframes gradientShift {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.5;
-            transform: scale(0.8);
-          }
-        }
-
-        @media (max-width: 768px) {
-          .projects-container {
-            padding: 4rem 1rem;
-          }
-
-          .projects-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .title {
-            font-size: 2.2rem;
-          }
-
-          .subtitle {
-            font-size: 1rem;
-          }
-
-          .card-content {
-            padding: 1.5rem;
-          }
-
-          .card-topline {
-            flex-direction: column;
-            align-items: flex-start;
-          }
+        .back-btn {
+          margin-bottom: 1.5rem;
         }
       `}</style>
     </div>

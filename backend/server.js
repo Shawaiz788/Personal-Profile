@@ -35,27 +35,28 @@ app.get('/api/portfolio', (req, res) => {
 app.get('/api/about', (req, res) => {
   res.json({
     name: 'Shawaiz Ali Rehman',
-    title: 'Computer Science Student',
+    title: 'Mobile & Software Engineer',
     location: 'Lahore, Pakistan',
-    status: 'Open to full-time roles, internships, and freelance work',
-    bio: 'Computer Science undergraduate at FAST-NUCES with a strong academic record and hands-on experience across web, mobile, and systems development. I build practical products in React, Node.js, Java, and C++ with a focus on clean architecture, performance, and user experience. My work spans reservation platforms, console games, and assembly-based applications, and I am growing into a well-rounded software engineer who ships reliable, thoughtful software.',
+    status: 'Open to Mobile (React Native / Android Java) & Software Engineering roles',
+    bio: 'Computer Science undergraduate at FAST-NUCES (GPA 3.89) with specialized expertise in Mobile App Development (React Native & Android Java), Web applications, AI systems, and low-level software engineering. I build production-ready mobile apps ranging from gig-economy service marketplaces and native Android audio streaming apps to custom React Native camera platforms and Smart TV podcast experiences.',
     stats: [
-      { label: 'GPA', value: '3.9' },
-      { label: 'Projects', value: '6+' },
+      { label: 'GPA', value: '3.89' },
+      { label: 'Projects', value: '10+' },
       { label: 'Degree', value: 'BSCS' },
-      { label: 'Goal', value: 'Software Engineer' }
+      { label: 'Focus', value: 'Mobile & Web' }
     ],
     skills: {
-      frontend: ['React', 'Next.js', 'JavaScript', 'HTML/CSS', 'Java', 'XML'],
-      backend: ['Node.js', 'Express', 'SQL', 'Supabase', 'PostgreSQL', 'Java', 'Firebase'],
-      tools: ['Android Studio', 'C++', 'C', 'Python', 'x86 Assembly', 'GitHub', 'Figma']
+      mobile: ['React Native', 'Android Studio', 'Java (Android)', 'Expo', 'VegaOS / FireTV', 'Mobile UI/UX', 'VisionCamera'],
+      frontend: ['React', 'Next.js', 'JavaScript (ES6+)', 'HTML5 / CSS3', 'Tailwind CSS'],
+      backend: ['Node.js', 'Express', 'Python', 'BERT / NLP', 'SQL / PostgreSQL', 'Supabase', 'Firebase'],
+      tools: ['Java', 'C++', 'C', 'x86 Assembly', 'Git & GitHub', 'Figma', 'Android SDK']
     },
     education: [
       {
         year: '2023 - 2027',
         degree: 'BS Computer Science',
         school: 'FAST-NUCES, Lahore',
-        note: 'Current GPA: 3.9'
+        note: 'Current GPA: 3.89'
       },
       {
         year: '2021 - 2023',

@@ -1,638 +1,348 @@
 import React from 'react';
-import { FiArrowRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
+import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiSmartphone, FiCode, FiLayers, FiAward } from 'react-icons/fi';
+import TiltCard from '../components/TiltCard';
 
 const Home = ({ setCurrentPage }) => {
   return (
-    <div className="home-container">
-      {/* Main Hero Section - Full Screen */}
-      <section className="hero-section">
-        {/* Animated Background */}
-        <div className="background">
-          <div className="gradient-orb orb-1"></div>
-          <div className="gradient-orb orb-2"></div>
-          <div className="gradient-orb orb-3"></div>
-          <div className="grid-overlay"></div>
-        </div>
-
-        {/* Floating Elements */}
-          <div className="floating-elements">
-          <div className="floating-shape shape-1"></div>
-          <div className="floating-shape shape-2"></div>
-          <div className="floating-shape shape-3"></div>
-          <div className="code-snippet">{"<Shawaiz />"}</div>
-          <div className="code-snippet-2">{"{Student Builder}"}</div>
-        </div>
-
-        {/* Main Content */}
-        <div className="hero-content">
-          <div className="content-wrapper">
-            {/* Availability Badge */}
-            <div className="availability-badge">
-              <span className="dot"></span>
-              Open to opportunities
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="main-title">
-              Shawaiz Ali Rehman
-              <br />
-              Building digital
-              <span className="gradient-text"> experiences</span>
-              <br />
-              that make a difference
-            </h1>
-
-            {/* Description */}
-            <p className="description">
-              I'm a Computer Science student at FAST-NUCES in Lahore who enjoys building clean, user-first products across web, mobile, and systems.
-              I turn ideas into reliable experiences with React, Node.js, Java, C++, and database-driven apps.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="cta-buttons">
-              <button className="btn btn-secondary" onClick={() => setCurrentPage('contact')}>
-                Contact Me
-              </button>
-            </div>
-
-            {/* Social Links */}
-            <div className="social-section">
-              <div className="social-links">
-                <a
-                  href="https://github.com/Shawaiz788?tab=repositories"
-                  className="social-link"
-                  aria-label="GitHub"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <FiGithub />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/shawaiz-ali-rehman-52227427b/"
-                  className="social-link"
-                  aria-label="LinkedIn"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <FiLinkedin />
-                </a>
-                <a
-                  href="mailto:shawaizali788@gmail.com"
-                  className="social-link"
-                  aria-label="Email"
-                >
-                  <FiMail />
-                </a>
-              </div>
-            </div>
+    <div className="home-page">
+      {/* Hero Section */}
+      <section className="hero-grid">
+        <div className="hero-text-col">
+          <div className="section-badge">
+            <span className="badge-dot"></span>
+            Open to Mobile & Software Roles
           </div>
-        </div>
 
-        {/* Stats Section - Positioned at bottom */}
-        <div className="stats-wrapper">
-          <div className="stats-container">
-            <div className="stat-card">
-              <span className="stat-value">3.9</span>
-              <span className="stat-label">Current GPA</span>
-            </div>
-            <div className="stat-divider"></div>
-            <div className="stat-card">
-              <span className="stat-value">6+</span>
-              <span className="stat-label">Projects Built</span>
-            </div>
-            <div className="stat-divider"></div>
-            <div className="stat-card">
-              <span className="stat-value">BSCS</span>
-              <span className="stat-label">Current Degree</span>
-            </div>
-          </div>
-          {/* Move View My Work button below stats */}
-          <div className="stats-cta">
+          <h1 className="hero-title">
+            Shawaiz Ali Rehman
+            <br />
+            <span className="gradient-text">Mobile & Software</span> Engineer
+          </h1>
+
+          <p className="hero-description">
+            Computer Science student at FAST-NUCES (GPA 3.89) specializing in <strong>Mobile Application Development (React Native & Android Java)</strong>, AI healthcare models, and responsive web platforms. Turning complex ideas into sleek, production-ready software.
+          </p>
+
+          <div className="hero-actions">
             <button className="btn btn-primary" onClick={() => setCurrentPage('projects')}>
-              View My Work <FiArrowRight className="btn-icon" />
+              View My Work <FiArrowRight />
+            </button>
+            <button className="btn btn-secondary" onClick={() => setCurrentPage('contact')}>
+              Contact Me
             </button>
           </div>
+
+          <div className="social-links">
+            <a
+              href="https://github.com/Shawaiz788?tab=repositories"
+              className="social-btn"
+              aria-label="GitHub"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FiGithub />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/shawaiz-ali-rehman-52227427b/"
+              className="social-btn"
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FiLinkedin />
+            </a>
+            <a
+              href="mailto:shawaizali788@gmail.com"
+              className="social-btn"
+              aria-label="Email"
+            >
+              <FiMail />
+            </a>
+          </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="scroll-indicator">
-          <div className="mouse">
-            <div className="wheel"></div>
-          </div>
-          <div className="scroll-text">Scroll to explore</div>
+        <div className="hero-visual-col">
+          <TiltCard className="hero-code-card">
+            <div className="card-header-bar">
+              <span className="window-dot red"></span>
+              <span className="window-dot yellow"></span>
+              <span className="window-dot green"></span>
+              <span className="card-filename">developer_profile.ts</span>
+            </div>
+            <div className="code-block">
+              <p><span className="keyword">const</span> developer = &#123;</p>
+              <p className="indent"><span className="property">name</span>: <span className="string">'Shawaiz Ali Rehman'</span>,</p>
+              <p className="indent"><span className="property">university</span>: <span className="string">'FAST-NUCES Lahore'</span>,</p>
+              <p className="indent"><span className="property">gpa</span>: <span className="number">3.89</span>,</p>
+              <p className="indent"><span className="property">coreFocus</span>: [</p>
+              <p className="indent-2"><span className="string">'React Native Mobile'</span>,</p>
+              <p className="indent-2"><span className="string">'Android (Java SDK)'</span>,</p>
+              <p className="indent-2"><span className="string">'Full-Stack Web'</span>,</p>
+              <p className="indent-2"><span className="string">'AI & NLP'</span></p>
+              <p className="indent">],</p>
+              <p className="indent"><span className="property">status</span>: <span className="string">'Building high-impact apps'</span></p>
+              <p>&#125;;</p>
+            </div>
+            <div className="tech-pills">
+              <span className="pill"><FiSmartphone /> React Native</span>
+              <span className="pill"><FiCode /> Android Java</span>
+              <span className="pill"><FiLayers /> Full-Stack</span>
+            </div>
+          </TiltCard>
+        </div>
+      </section>
+
+      {/* Stats Widgets */}
+      <section className="stats-section">
+        <div className="stats-grid">
+          <TiltCard className="stat-card">
+            <div className="stat-icon-wrapper purple">
+              <FiAward />
+            </div>
+            <div className="stat-content">
+              <span className="stat-number">3.89</span>
+              <span className="stat-title">Current GPA</span>
+              <span className="stat-sub">FAST-NUCES Lahore</span>
+            </div>
+          </TiltCard>
+
+          <TiltCard className="stat-card">
+            <div className="stat-icon-wrapper cyan">
+              <FiLayers />
+            </div>
+            <div className="stat-content">
+              <span className="stat-number">10+</span>
+              <span className="stat-title">Projects Built</span>
+              <span className="stat-sub">Mobile, Web & Systems</span>
+            </div>
+          </TiltCard>
+
+          <TiltCard className="stat-card">
+            <div className="stat-icon-wrapper pink">
+              <FiSmartphone />
+            </div>
+            <div className="stat-content">
+              <span className="stat-number">Mobile</span>
+              <span className="stat-title">Core Specialization</span>
+              <span className="stat-sub">React Native & Android</span>
+            </div>
+          </TiltCard>
         </div>
       </section>
 
       <style jsx>{`
-        .home-container {
-          width: 100%;
-          overflow-x: hidden;
-        }
-
-        /* Hero Section - Full Screen */
-        .hero-section {
-          min-height: calc(100vh - 60px);
-          max-width: 100%;
-          width: 100%;
-          padding: 0;
-          position: relative;
+        .home-page {
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          gap: 3.5rem;
+          padding-top: 1rem;
+        }
+
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 3rem;
           align-items: center;
-          background: #0a0a0a;
-          color: white;
-          overflow: hidden;
         }
 
-        /* Animated Background */
-        .background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: 1;
+        .hero-title {
+          font-size: 3rem;
+          line-height: 1.15;
+          margin-bottom: 1.25rem;
+          font-weight: 700;
         }
 
-        .gradient-orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.4;
-        }
-
-        .orb-1 {
-          width: 600px;
-          height: 600px;
-          background: radial-gradient(circle, #667eea 0%, transparent 70%);
-          top: -200px;
-          right: -200px;
-          animation: float 20s ease-in-out infinite;
-        }
-
-        .orb-2 {
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, #764ba2 0%, transparent 70%);
-          bottom: -150px;
-          left: -150px;
-          animation: float 15s ease-in-out infinite reverse;
-        }
-
-        .orb-3 {
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, #ff6b6b 0%, transparent 70%);
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          animation: float 18s ease-in-out infinite;
-        }
-
-        .grid-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-          background-size: 50px 50px;
-          z-index: 2;
-        }
-
-        /* Floating Elements */
-        .floating-elements {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: 3;
-          pointer-events: none;
-        }
-
-        .floating-shape {
-          position: absolute;
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 50%;
-        }
-
-        .shape-1 {
-          width: 300px;
-          height: 300px;
-          top: 15%;
-          left: 10%;
-          animation: floatShape 25s linear infinite;
-        }
-
-        .shape-2 {
-          width: 200px;
-          height: 200px;
-          bottom: 20%;
-          right: 15%;
-          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-          animation: floatShape 20s linear infinite reverse;
-        }
-
-        .shape-3 {
-          width: 150px;
-          height: 150px;
-          top: 40%;
-          right: 25%;
-          border-radius: 50% 50% 30% 70% / 50% 30% 70% 50%;
-          animation: floatShape 15s linear infinite;
-        }
-
-        .code-snippet,
-        .code-snippet-2 {
-          position: absolute;
-          font-family: monospace;
-          font-size: 1rem;
-          padding: 0.5rem 1rem;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(5px);
-          border-radius: 8px;
-          color: rgba(255, 255, 255, 0.5);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .code-snippet {
-          top: 25%;
-          right: 20%;
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .code-snippet-2 {
-          bottom: 30%;
-          left: 15%;
-          animation: float 7s ease-in-out infinite reverse;
-        }
-
-        /* Main Content */
-        .hero-content {
-          position: relative;
-          z-index: 10;
-          max-width: 1200px;
-          width: 100%;
-          padding: 0 2rem;
-          margin: 0 auto;
-        }
-
-        .content-wrapper {
-          max-width: 900px;
-          margin: 0 auto;
-          padding-bottom: 280px;
-        }
-
-        .availability-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.75rem;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          padding: 0.75rem 1.5rem;
-          border-radius: 50px;
+        .hero-description {
+          font-size: 1.05rem;
+          color: var(--text-muted);
+          line-height: 1.65;
           margin-bottom: 2rem;
-          font-size: 0.95rem;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          animation: slideUp 0.8s ease-out;
         }
 
-        .dot {
-          width: 8px;
-          height: 8px;
-          background: #4ade80;
-          border-radius: 50%;
-          animation: pulse 2s infinite;
-        }
-
-        .main-title {
-          font-size: clamp(3rem, 10vw, 5.5rem);
-          font-weight: 800;
-          line-height: 1.1;
-          margin-bottom: 1.5rem;
-          animation: slideUp 0.8s ease-out 0.2s both;
-        }
-
-        .gradient-text {
-          background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-size: 200% 200%;
-          animation: gradientShift 8s ease infinite;
-        }
-
-        .description {
-          font-size: 1.25rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.8);
-          max-width: 700px;
-          margin-bottom: 2.5rem;
-          animation: slideUp 0.8s ease-out 0.4s both;
-        }
-
-        /* CTA Buttons */
-        .cta-buttons {
+        .hero-actions {
           display: flex;
           gap: 1rem;
-          margin-bottom: 3rem;
-          animation: slideUp 0.8s ease-out 0.6s both;
-        }
-
-        .btn {
-          padding: 1rem 2rem;
-          border-radius: 50px;
-          font-size: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          border: none;
-          outline: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .btn-primary {
-          background: white;
-          color: #0a0a0a;
-        }
-
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 20px 30px -10px rgba(102, 126, 234, 0.5);
-        }
-
-        .btn-secondary {
-          background: transparent;
-          color: white;
-          border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-          border-color: white;
-          transform: translateY(-2px);
-        }
-
-        .btn-icon {
-          transition: transform 0.3s ease;
-        }
-
-        .btn-primary:hover .btn-icon {
-          transform: translateX(5px);
-        }
-
-        /* Social Section */
-        .social-section {
-          animation: slideUp 0.8s ease-out 0.8s both;
+          margin-bottom: 2rem;
         }
 
         .social-links {
           display: flex;
-          gap: 1.5rem;
+          gap: 0.75rem;
         }
 
-        .social-link {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 1.5rem;
-          transition: all 0.3s ease;
+        .social-btn {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--border-glass);
+          color: var(--text-muted);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          transition: all 0.25s ease;
+          text-decoration: none;
         }
 
-        .social-link:hover {
-          color: white;
+        .social-btn:hover {
+          color: #ffffff;
+          background: rgba(139, 92, 246, 0.2);
+          border-color: var(--accent-purple);
           transform: translateY(-3px);
         }
 
-        /* Stats Section */
-        .stats-wrapper {
-          position: absolute;
-          bottom: 100px;
-          left: 0;
-          right: 0;
-          z-index: 10;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 2rem;
-          animation: slideUp 0.8s ease-out 1s both;
+        /* Code Card Visual */
+        .hero-code-card {
+          background: rgba(13, 17, 28, 0.75);
+          backdrop-filter: blur(20px);
+          border: 1px solid var(--border-glass);
+          border-radius: 20px;
+          padding: 1.5rem;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .stats-container {
+        .card-header-bar {
           display: flex;
           align-items: center;
-          gap: 3rem;
-          padding: 1.5rem 3rem;
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          border-radius: 100px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          gap: 0.5rem;
+          margin-bottom: 1.25rem;
+          padding-bottom: 0.75rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .stats-cta {
+        .window-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+
+        .window-dot.red { background: #ff5f56; }
+        .window-dot.yellow { background: #ffbd2e; }
+        .window-dot.green { background: #27c93f; }
+
+        .card-filename {
+          margin-left: auto;
+          font-size: 0.75rem;
+          color: var(--text-dim);
+          font-family: monospace;
+        }
+
+        .code-block {
+          font-family: 'Fira Code', Consolas, Monaco, monospace;
+          font-size: 0.875rem;
+          line-height: 1.7;
+          color: #e2e8f0;
+          margin-bottom: 1.25rem;
+        }
+
+        .keyword { color: #c678dd; }
+        .property { color: #e06c75; }
+        .string { color: #98c379; }
+        .number { color: #d19a66; }
+        .indent { padding-left: 1.25rem; }
+        .indent-2 { padding-left: 2.5rem; }
+
+        .tech-pills {
           display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .pill {
+          display: inline-flex;
           align-items: center;
-          justify-content: center;
+          gap: 0.4rem;
+          font-size: 0.775rem;
+          font-weight: 500;
+          padding: 0.35rem 0.75rem;
+          border-radius: 99px;
+          background: rgba(99, 102, 241, 0.1);
+          color: #a5b4fc;
+          border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
         }
 
         .stat-card {
+          background: var(--bg-card);
+          backdrop-filter: blur(16px);
+          border: 1px solid var(--border-glass);
+          border-radius: 18px;
+          padding: 1.5rem;
           display: flex;
-          flex-direction: column;
           align-items: center;
+          gap: 1.25rem;
         }
 
-        .stat-value {
-          font-size: 2rem;
+        .stat-icon-wrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.4rem;
+        }
+
+        .stat-icon-wrapper.purple {
+          background: rgba(168, 85, 247, 0.15);
+          color: #c084fc;
+          border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .stat-icon-wrapper.cyan {
+          background: rgba(6, 182, 212, 0.15);
+          color: #22d3ee;
+          border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .stat-icon-wrapper.pink {
+          background: rgba(236, 72, 153, 0.15);
+          color: #f472b6;
+          border: 1px solid rgba(236, 72, 153, 0.3);
+        }
+
+        .stat-content {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .stat-number {
+          font-size: 1.6rem;
           font-weight: 700;
-          background: linear-gradient(135deg, #fff, #a5b4fc);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: #ffffff;
+          font-family: var(--font-display);
+          line-height: 1;
+          margin-bottom: 0.25rem;
         }
 
-        .stat-label {
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.6);
+        .stat-title {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: var(--text-main);
         }
 
-        .stat-divider {
-          width: 1px;
-          height: 30px;
-          background: rgba(255, 255, 255, 0.2);
+        .stat-sub {
+          font-size: 0.775rem;
+          color: var(--text-muted);
         }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-          position: absolute;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 10;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.5rem;
-          opacity: 0.7;
-          transition: opacity 0.3s ease;
-          animation: fadeIn 1s ease-out 1.5s both;
-        }
-
-        .scroll-indicator:hover {
-          opacity: 1;
-        }
-
-        .mouse {
-          width: 26px;
-          height: 40px;
-          border: 2px solid rgba(255, 255, 255, 0.5);
-          border-radius: 20px;
-          position: relative;
-        }
-
-        .wheel {
-          width: 4px;
-          height: 8px;
-          background: white;
-          border-radius: 2px;
-          position: absolute;
-          top: 6px;
-          left: 50%;
-          transform: translateX(-50%);
-          animation: scrollWheel 2s infinite;
-        }
-
-        .scroll-text {
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.5);
-          letter-spacing: 1px;
-        }
-
-        /* Animations */
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
+        @media (max-width: 900px) {
+          .hero-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
           }
-          50% {
-            transform: translateY(-30px) rotate(5deg);
+          .hero-title {
+            font-size: 2.25rem;
           }
-        }
-
-        @keyframes floatShape {
-          0% {
-            transform: rotate(0deg) translateY(0);
-          }
-          33% {
-            transform: rotate(120deg) translateY(-20px);
-          }
-          66% {
-            transform: rotate(240deg) translateY(20px);
-          }
-          100% {
-            transform: rotate(360deg) translateY(0);
-          }
-        }
-
-        @keyframes gradientShift {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.5;
-            transform: scale(0.8);
-          }
-        }
-
-        @keyframes scrollWheel {
-          0% {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-          }
-          100% {
-            opacity: 0;
-            transform: translateX(-50%) translateY(15px);
-          }
-        }
-
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 0.7;
-          }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .hero-content {
-            padding: 0 1.5rem;
-          }
-
-          .content-wrapper {
-            padding-bottom: 2rem;
-          }
-
-          .main-title {
-            font-size: 2.5rem;
-          }
-
-          .description {
-            font-size: 1rem;
-          }
-
-          .cta-buttons {
-            flex-direction: column;
-          }
-
-          .stats-wrapper {
-            position: static;
-            margin-top: 2rem;
-            padding: 0 1rem;
-            width: 100%;
-            flex-direction: column;
-          }
-
-          .stats-container {
-            flex-direction: column;
-            gap: 1rem;
-            padding: 1.5rem;
-            border-radius: 20px;
-            width: 100%;
-          }
-
-          .stat-divider {
-            width: 50px;
-            height: 1px;
-          }
-
-          .floating-elements {
-            opacity: 0.3;
-          }
-
-          .scroll-indicator {
-            display: none;
+          .stats-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
