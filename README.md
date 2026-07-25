@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 Shawaiz Ali Rehman — Personal Portfolio & Engineering Showcase
+# 🚀 Shawaiz Ali Rehman - Personal Portfolio & Engineering Showcase
 
 ### A modern, high-performance developer portfolio featuring interactive 3D particle physics, Light/Dark mode themes, video demo modals, instant project search, and playable browser apps.
 
