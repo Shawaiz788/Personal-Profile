@@ -9,7 +9,7 @@ const portfolioProjects = [
   {
     id: 'kaamkarwao',
     title: 'KaamKarwao',
-    tagline: 'Mobile Service Marketplace',
+    tagline: 'Mobile Marketplace',
     description: 'A feature-packed mobile service booking platform connecting service seekers with skilled workers, featuring user authentication, booking workflows, real-time status tracking, and intuitive UI.',
     technologies: ['React Native', 'Mobile Dev', 'Expo SDK 54', 'JavaScript', 'TanStack Query', 'MMKV Storage', 'Leaflet / OSM'],
     icon: '🛠️',
@@ -34,7 +34,7 @@ const portfolioProjects = [
   {
     id: 'music-streaming',
     title: 'Android Music Streaming',
-    tagline: 'Native Android Audio App',
+    tagline: 'Native Audio App',
     description: 'A native Android music player and streaming starter application built with Java, Android SDK, and Media3/ExoPlayer featuring background audio services, playback controls, and modern Material UI.',
     technologies: ['Android Studio', 'Java', 'Android SDK', 'ExoPlayer / Media3', 'Firebase', 'SQLite', 'Shazam AudD API'],
     icon: '🎵',
@@ -58,7 +58,7 @@ const portfolioProjects = [
   {
     id: 'neem-bert-hakeem',
     title: 'Neem-Bert-Hakeem',
-    tagline: 'AI & NLP Healthcare Assistant',
+    tagline: 'AI Healthcare QA',
     description: 'An AI-powered healthcare & herbal consultation system utilizing fine-tuned BERT models for natural language medical QA, symptom evaluation, and personalized advice.',
     technologies: ['Python', 'BERT / Transformers', 'NLP / AI', 'Flask / FastAPI', 'Machine Learning'],
     icon: '🌿',
@@ -81,7 +81,7 @@ const portfolioProjects = [
   {
     id: 'sudoku',
     title: 'Sudoku Game',
-    tagline: 'Interactive Browser & Assembly Project',
+    tagline: 'x86 Assembly App',
     description: 'A Sudoku experience rooted in low-level x86 programming, presented inside the portfolio as an interactive playable browser application.',
     technologies: ['x86 Assembly', 'DOS', 'Interactive UI', 'JavaScript'],
     icon: '🎮',
@@ -103,7 +103,7 @@ const portfolioProjects = [
   {
     id: 'rn-camera',
     title: 'React Native Camera App',
-    tagline: 'Native Mobile Camera & Gallery',
+    tagline: 'Mobile Camera App',
     description: 'A mobile camera application engineered with React Native and native device vision modules, supporting high-resolution image capture, filter previews, camera permission handling, and image gallery management.',
     technologies: ['React Native', 'Mobile Dev', 'VisionCamera', 'Expo Router', 'Media Library', 'JavaScript'],
     icon: '📷',
@@ -128,7 +128,7 @@ const portfolioProjects = [
   {
     id: 'firetv-podcast',
     title: 'FireTV Podcast App (VegaOS)',
-    tagline: 'Smart TV & FireTV React Native App',
+    tagline: 'Smart TV & FireTV',
     description: 'Cross-platform podcast streaming application custom-tailored for Amazon FireTV and VegaOS TV interfaces, featuring D-pad remote navigation, background audio streaming, and leanback TV UI.',
     technologies: ['React Native', 'Expo TV', 'FireTV / Smart TV', 'VegaOS', 'Yarn Monorepo', 'Podcast API'],
     icon: '📺',
@@ -152,7 +152,7 @@ const portfolioProjects = [
   {
     id: 'friendsly',
     title: 'FriendsLy',
-    tagline: 'Social Networking & Community Platform',
+    tagline: 'Social & Community',
     description: 'A mobile-first social discovery and community building platform enabling users to match over shared interests, initiate direct messages, and discover local activities without GPS tracking.',
     technologies: ['React', 'TypeScript', 'Vite', 'Supabase', 'Privacy Controls', 'Mobile UI'],
     icon: '👥',
@@ -176,7 +176,7 @@ const portfolioProjects = [
   {
     id: 'bingo',
     title: 'Bingo Game',
-    tagline: 'C++ project adapted for the web',
+    tagline: 'C++ System & Web',
     description: 'A two-player Bingo system originally written in C++, now presented in the portfolio with a browser version, source download, and project write-up.',
     technologies: ['C++', 'Game Logic', 'Browser Adaptation'],
     icon: '🟡',
@@ -204,7 +204,7 @@ const portfolioProjects = [
   {
     id: 'codeack',
     title: 'CodeAck',
-    tagline: 'Competitive programming platform',
+    tagline: 'Competitive Coding',
     description: 'A full-stack coding practice platform inspired by modern competitive programming tools, with problem management, submissions, authentication, leaderboard data, and scalable backend structure.',
     technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Supabase', 'Code Evaluation'],
     icon: '🧠',
@@ -227,7 +227,7 @@ const portfolioProjects = [
   {
     id: 'restaurant-reservation',
     title: 'Restaurant Reservation System',
-    tagline: 'Full-stack reservation platform',
+    tagline: 'Reservation Platform',
     description: 'A reservation management web app built for handling table bookings, customer records, user authentication, and live availability across a restaurant workflow.',
     technologies: ['React', 'Node.js', 'Express', 'SQL', 'Authentication'],
     icon: '🍽️',
@@ -250,7 +250,7 @@ const portfolioProjects = [
   {
     id: 'fitness-cpp',
     title: 'Fitness Tracker Console App',
-    tagline: 'Windows console application',
+    tagline: 'C++ Console App',
     description: 'A fitness-focused C++ console application with user accounts, personal info management, workout guidance, progress tracking, and file-based persistence.',
     technologies: ['C++', 'OOP', 'Windows Console', 'File Handling'],
     icon: '🏋️',
@@ -274,7 +274,7 @@ const portfolioProjects = [
   {
     id: 'bank-cpp',
     title: 'Banking System Prototype',
-    tagline: 'Object-oriented systems project',
+    tagline: 'C++ Systems Design',
     description: 'A C++ banking system prototype structured around users, cards, transactions, fraud status checks, and account tiers, showing class design and file-driven workflows.',
     technologies: ['C++', 'System Design', 'Transactions', 'OOP Modeling'],
     icon: '🏦',
@@ -634,17 +634,16 @@ const Projects = ({ initialFilter = 'all' }) => {
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          font-size: 0.75rem;
+          font-size: 0.725rem;
           font-weight: 600;
           color: var(--accent-secondary);
           background: var(--badge-bg);
           padding: 0.25rem 0.65rem;
           border-radius: 99px;
           border: 1px solid var(--badge-border);
-          max-width: 60%;
+          max-width: fit-content;
           white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          flex-shrink: 0;
         }
 
         .project-title {
