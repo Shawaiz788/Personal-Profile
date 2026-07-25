@@ -186,20 +186,20 @@ const Home = ({ setCurrentPage }) => {
         }
 
         .social-btn:hover {
-          color: #ffffff;
-          background: rgba(139, 92, 246, 0.2);
-          border-color: var(--accent-purple);
+          color: var(--accent-primary);
+          background: rgba(59, 130, 246, 0.15);
+          border-color: var(--accent-primary);
           transform: translateY(-3px);
         }
 
         /* Code Card Visual */
         .hero-code-card {
-          background: rgba(13, 17, 28, 0.75);
+          background: var(--code-bg);
           backdrop-filter: blur(20px);
           border: 1px solid var(--border-glass);
           border-radius: 20px;
           padding: 1.5rem;
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .card-header-bar {
@@ -208,7 +208,7 @@ const Home = ({ setCurrentPage }) => {
           gap: 0.5rem;
           margin-bottom: 1.25rem;
           padding-bottom: 0.75rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          border-bottom: 1px solid var(--border-glass);
         }
 
         .window-dot {
@@ -236,10 +236,10 @@ const Home = ({ setCurrentPage }) => {
           margin-bottom: 1.25rem;
         }
 
-        .keyword { color: #c678dd; }
-        .property { color: #e06c75; }
-        .string { color: #98c379; }
-        .number { color: #d19a66; }
+        .keyword { color: #38bdf8; }
+        .property { color: #f43f5e; }
+        .string { color: #34d399; }
+        .number { color: #fbbf24; }
         .indent { padding-left: 1.25rem; }
         .indent-2 { padding-left: 2.5rem; }
 
@@ -257,9 +257,9 @@ const Home = ({ setCurrentPage }) => {
           font-weight: 500;
           padding: 0.35rem 0.75rem;
           border-radius: 99px;
-          background: rgba(99, 102, 241, 0.1);
-          color: #a5b4fc;
-          border: 1px solid rgba(99, 102, 241, 0.2);
+          background: var(--badge-bg);
+          color: var(--accent-primary);
+          border: 1px solid var(--badge-border);
         }
 
         /* Stats Grid */
@@ -291,21 +291,21 @@ const Home = ({ setCurrentPage }) => {
         }
 
         .stat-icon-wrapper.purple {
-          background: rgba(168, 85, 247, 0.15);
-          color: #c084fc;
-          border: 1px solid rgba(168, 85, 247, 0.3);
+          background: rgba(59, 130, 246, 0.15);
+          color: var(--accent-primary);
+          border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .stat-icon-wrapper.cyan {
-          background: rgba(6, 182, 212, 0.15);
-          color: #22d3ee;
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          background: rgba(16, 185, 129, 0.15);
+          color: var(--accent-secondary);
+          border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .stat-icon-wrapper.pink {
-          background: rgba(236, 72, 153, 0.15);
-          color: #f472b6;
-          border: 1px solid rgba(236, 72, 153, 0.3);
+          background: rgba(6, 182, 212, 0.15);
+          color: var(--accent-cyan);
+          border: 1px solid rgba(6, 182, 212, 0.3);
         }
 
         .stat-content {
@@ -316,8 +316,11 @@ const Home = ({ setCurrentPage }) => {
         .stat-number {
           font-size: 1.6rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-main);
           font-family: var(--font-display);
+          line-height: 1;
+          margin-bottom: 0.25rem;
+        }
           line-height: 1;
           margin-bottom: 0.25rem;
         }

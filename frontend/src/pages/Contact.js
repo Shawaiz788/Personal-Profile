@@ -188,21 +188,21 @@ const Contact = () => {
         }
 
         .icon-wrapper.purple {
-          background: rgba(168, 85, 247, 0.15);
-          color: #c084fc;
-          border: 1px solid rgba(168, 85, 247, 0.3);
+          background: rgba(59, 130, 246, 0.15);
+          color: var(--accent-primary);
+          border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .icon-wrapper.cyan {
-          background: rgba(6, 182, 212, 0.15);
-          color: #22d3ee;
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          background: rgba(16, 185, 129, 0.15);
+          color: var(--accent-secondary);
+          border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .icon-wrapper.pink {
-          background: rgba(236, 72, 153, 0.15);
-          color: #f472b6;
-          border: 1px solid rgba(236, 72, 153, 0.3);
+          background: rgba(6, 182, 212, 0.15);
+          color: var(--accent-cyan);
+          border: 1px solid rgba(6, 182, 212, 0.3);
         }
 
         .info-detail {
@@ -219,13 +219,13 @@ const Contact = () => {
         .info-link {
           font-size: 0.95rem;
           font-weight: 600;
-          color: #ffffff;
+          color: var(--text-main);
           text-decoration: none;
           transition: color 0.2s ease;
         }
 
         .info-link:hover {
-          color: var(--accent-indigo);
+          color: var(--accent-primary);
         }
 
         .contact-form-card {

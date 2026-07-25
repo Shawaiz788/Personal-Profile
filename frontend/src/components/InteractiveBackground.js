@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const InteractiveBackground = () => {
+const InteractiveBackground = ({ theme = 'light' }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -18,18 +18,12 @@ const InteractiveBackground = () => {
       y: height / 2,
       targetX: width / 2,
       targetY: height / 2,
-      radius: 180,
-      active: false
+      radius: 180
     };
 
     const handleMouseMove = (e) => {
       mouse.targetX = e.clientX;
       mouse.targetY = e.clientY;
-      mouse.active = true;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.active = false;
     };
 
     const handleResize = () => {
@@ -38,30 +32,37 @@ const InteractiveBackground = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', handleResize);
 
-    // Create particles
-    const particleCount = Math.min(Math.floor((width * height) / 12000), 80);
+    const isLight = theme === 'light';
+
+    // Particle count & color system
+    const particleCount = Math.min(Math.floor((width * height) / 12000), 75);
     const particles = [];
+
+    const primaryColor = isLight ? 'rgba(29, 78, 216, ' : 'rgba(59, 130, 246, ';
+    const secondaryColor = isLight ? 'rgba(5, 150, 105, ' : 'rgba(16, 185, 129, ';
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
-        color: Math.random() > 0.5 ? 'rgba(99, 102, 241, ' : 'rgba(6, 182, 212, ',
-        baseAlpha: Math.random() * 0.4 + 0.2
+        color: Math.random() > 0.5 ? primaryColor : secondaryColor,
+        baseAlpha: isLight ? Math.random() * 0.25 + 0.15 : Math.random() * 0.4 + 0.2
       });
     }
 
-    // Ambient floating 3D wireframe geometric cubes
+    // Ambient floating 3D wireframe cubes
+    const shapeColor = isLight ? 'rgba(29, 78, 216, 0.08)' : 'rgba(59, 130, 246, 0.12)';
+    const shapeColor2 = isLight ? 'rgba(5, 150, 105, 0.08)' : 'rgba(16, 185, 129, 0.12)';
+
     const shapes = [
-      { x: width * 0.15, y: height * 0.25, size: 60, rotX: 0, rotY: 0, speedX: 0.005, speedY: 0.008, color: 'rgba(99, 102, 241, 0.15)' },
-      { x: width * 0.82, y: height * 0.35, size: 80, rotX: 0, rotY: 0, speedX: 0.006, speedY: 0.004, color: 'rgba(168, 85, 247, 0.12)' },
-      { x: width * 0.70, y: height * 0.80, size: 50, rotX: 0, rotY: 0, speedX: 0.004, speedY: 0.007, color: 'rgba(6, 182, 212, 0.15)' }
+      { x: width * 0.15, y: height * 0.25, size: 60, rotX: 0, rotY: 0, speedX: 0.005, speedY: 0.008, color: shapeColor },
+      { x: width * 0.82, y: height * 0.35, size: 80, rotX: 0, rotY: 0, speedX: 0.006, speedY: 0.004, color: shapeColor2 },
+      { x: width * 0.70, y: height * 0.80, size: 50, rotX: 0, rotY: 0, speedX: 0.004, speedY: 0.007, color: shapeColor }
     ];
 
     const drawCube = (shape) => {
@@ -92,7 +93,7 @@ const InteractiveBackground = () => {
       ];
 
       ctx.strokeStyle = shape.color;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1;
       ctx.beginPath();
       edges.forEach(([start, end]) => {
         ctx.moveTo(projected[start][0], projected[start][1]);
@@ -107,6 +108,7 @@ const InteractiveBackground = () => {
 
       ctx.clearRect(0, 0, width, height);
 
+      // Radial cursor background glow
       const cursorGlow = ctx.createRadialGradient(
         mouse.x,
         mouse.y,
@@ -115,9 +117,17 @@ const InteractiveBackground = () => {
         mouse.y,
         350
       );
-      cursorGlow.addColorStop(0, 'rgba(99, 102, 241, 0.18)');
-      cursorGlow.addColorStop(0.5, 'rgba(168, 85, 247, 0.06)');
-      cursorGlow.addColorStop(1, 'rgba(7, 9, 14, 0)');
+
+      if (isLight) {
+        cursorGlow.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
+        cursorGlow.addColorStop(0.5, 'rgba(16, 185, 129, 0.03)');
+        cursorGlow.addColorStop(1, 'rgba(248, 250, 252, 0)');
+      } else {
+        cursorGlow.addColorStop(0, 'rgba(59, 130, 246, 0.16)');
+        cursorGlow.addColorStop(0.5, 'rgba(16, 185, 129, 0.05)');
+        cursorGlow.addColorStop(1, 'rgba(11, 15, 25, 0)');
+      }
+
       ctx.fillStyle = cursorGlow;
       ctx.fillRect(0, 0, width, height);
 
@@ -143,7 +153,7 @@ const InteractiveBackground = () => {
           const factor = 1 - dist / mouse.radius;
           p.x -= (dx / dist) * factor * 1.5;
           p.y -= (dy / dist) * factor * 1.5;
-          alpha = Math.min(1, p.baseAlpha + factor * 0.6);
+          alpha = Math.min(1, p.baseAlpha + factor * 0.5);
         }
 
         ctx.fillStyle = `${p.color}${alpha})`;
@@ -158,8 +168,10 @@ const InteractiveBackground = () => {
           const pdist = Math.sqrt(pdx * pdx + pdy * pdy);
 
           if (pdist < 110) {
-            const lineAlpha = (1 - pdist / 110) * 0.2;
-            ctx.strokeStyle = `rgba(99, 102, 241, ${lineAlpha})`;
+            const lineAlpha = (1 - pdist / 110) * (isLight ? 0.12 : 0.18);
+            ctx.strokeStyle = isLight
+              ? `rgba(29, 78, 216, ${lineAlpha})`
+              : `rgba(59, 130, 246, ${lineAlpha})`;
             ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
@@ -177,10 +189,9 @@ const InteractiveBackground = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas

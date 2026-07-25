@@ -254,7 +254,7 @@ const About = () => {
         }
 
         .hl-val {
-          color: #ffffff;
+          color: var(--text-main);
           font-weight: 600;
         }
 
@@ -294,10 +294,10 @@ const About = () => {
         .skill-icon {
           font-size: 1.2rem;
         }
-        .skill-icon.purple { color: #c084fc; }
-        .skill-icon.cyan { color: #22d3ee; }
-        .skill-icon.pink { color: #f472b6; }
-        .skill-icon.indigo { color: #818cf8; }
+        .skill-icon.purple { color: var(--accent-primary); }
+        .skill-icon.cyan { color: var(--accent-secondary); }
+        .skill-icon.pink { color: var(--accent-cyan); }
+        .skill-icon.indigo { color: var(--accent-indigo); }
 
         .chips {
           display: flex;
@@ -309,9 +309,9 @@ const About = () => {
           font-size: 0.775rem;
           padding: 0.3rem 0.7rem;
           border-radius: 8px;
-          background: rgba(255, 255, 255, 0.04);
+          background: rgba(148, 163, 184, 0.08);
           color: var(--text-main);
-          border: 1px solid rgba(255, 255, 255, 0.06);
+          border: 1px solid var(--border-glass);
         }
 
         .edu-grid {
@@ -330,7 +330,7 @@ const About = () => {
 
         .edu-year {
           font-size: 0.8rem;
-          color: var(--accent-indigo);
+          color: var(--accent-primary);
           font-weight: 600;
           margin-bottom: 0.35rem;
         }
@@ -338,6 +338,7 @@ const About = () => {
         .edu-degree {
           font-size: 1.1rem;
           font-weight: 700;
+          color: var(--text-main);
           margin-bottom: 0.25rem;
         }
 
@@ -350,11 +351,12 @@ const About = () => {
         .edu-note-chip {
           display: inline-block;
           font-size: 0.75rem;
-          padding: 0.2rem 0.6rem;
+          font-weight: 600;
+          padding: 0.25rem 0.65rem;
           border-radius: 99px;
-          background: rgba(168, 85, 247, 0.1);
-          color: #c084fc;
-          border: 1px solid rgba(168, 85, 247, 0.25);
+          background: var(--badge-bg);
+          color: var(--accent-primary);
+          border: 1px solid var(--badge-border);
         }
 
         @media (max-width: 800px) {

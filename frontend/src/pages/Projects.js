@@ -347,14 +347,21 @@ const Projects = () => {
 
         .filter-bar {
           display: flex;
-          gap: 0.5rem;
-          flex-wrap: wrap;
-          background: rgba(255, 255, 255, 0.03);
-          padding: 0.4rem;
+          gap: 0.4rem;
+          overflow-x: auto;
+          max-width: 100%;
+          white-space: nowrap;
+          background: rgba(148, 163, 184, 0.08);
+          padding: 0.35rem 0.5rem;
           border-radius: 99px;
           border: 1px solid var(--border-glass);
-          width: fit-content;
           margin-bottom: 2rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+
+        .filter-bar::-webkit-scrollbar {
+          display: none;
         }
 
         .filter-btn {
@@ -362,27 +369,30 @@ const Projects = () => {
           border: none;
           color: var(--text-muted);
           font-family: var(--font-body);
-          font-weight: 500;
-          font-size: 0.875rem;
+          font-weight: 600;
+          font-size: 0.85rem;
           padding: 0.45rem 1.1rem;
           border-radius: 99px;
           cursor: pointer;
           transition: all 0.2s ease;
+          flex-shrink: 0;
+          white-space: nowrap;
         }
 
         .filter-btn:hover {
           color: var(--text-main);
-          background: rgba(255, 255, 255, 0.06);
+          background: rgba(148, 163, 184, 0.12);
         }
 
         .filter-btn.active {
           color: #ffffff;
-          background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(168, 85, 247, 0.8));
+          background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
         }
 
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
           gap: 1.5rem;
         }
 
@@ -409,7 +419,7 @@ const Projects = () => {
           width: 44px;
           height: 44px;
           border-radius: 12px;
-          background: rgba(255, 255, 255, 0.04);
+          background: rgba(148, 163, 184, 0.08);
           border: 1px solid var(--border-glass);
           display: flex;
           align-items: center;
@@ -421,11 +431,16 @@ const Projects = () => {
           align-items: center;
           gap: 0.35rem;
           font-size: 0.75rem;
-          color: var(--accent-cyan);
-          background: rgba(6, 182, 212, 0.1);
+          font-weight: 600;
+          color: var(--accent-secondary);
+          background: var(--badge-bg);
           padding: 0.25rem 0.65rem;
           border-radius: 99px;
-          border: 1px solid rgba(6, 182, 212, 0.25);
+          border: 1px solid var(--badge-border);
+          max-width: 60%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .project-title {
@@ -454,9 +469,9 @@ const Projects = () => {
           font-size: 0.75rem;
           padding: 0.2rem 0.6rem;
           border-radius: 6px;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(148, 163, 184, 0.08);
           color: var(--text-main);
-          border: 1px solid rgba(255, 255, 255, 0.06);
+          border: 1px solid var(--border-glass);
         }
 
         .card-actions {
@@ -480,19 +495,19 @@ const Projects = () => {
         }
 
         .action-btn.primary {
-          background: linear-gradient(135deg, #6366f1, #a855f7);
+          background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
           color: #ffffff;
         }
 
         .action-btn.secondary {
-          background: rgba(255, 255, 255, 0.06);
+          background: rgba(148, 163, 184, 0.08);
           color: var(--text-main);
           border: 1px solid var(--border-glass);
         }
 
         .action-btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
         }
 
         .game-view-wrapper {
