@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FiDownload, FiSmartphone, FiCode, FiCpu, FiBookOpen } from 'react-icons/fi';
+import { FiDownload, FiSmartphone, FiCode, FiCpu, FiBookOpen, FiCopy, FiCheck, FiZap } from 'react-icons/fi';
 import TiltCard from '../components/TiltCard';
 
 const defaultData = {
@@ -16,9 +16,9 @@ const defaultData = {
     { label: 'Focus', value: 'Mobile & Web' }
   ],
   skills: {
-    mobile: ['React Native', 'Android Studio', 'Java (Android)', 'Expo', 'VegaOS / FireTV', 'Mobile UI/UX', 'VisionCamera'],
-    frontend: ['React', 'Next.js', 'JavaScript (ES6+)', 'HTML5 / CSS3', 'Tailwind CSS'],
-    backend: ['Node.js', 'Express', 'Python', 'BERT / NLP', 'SQL / PostgreSQL', 'Supabase', 'Firebase'],
+    mobile: ['React Native', 'Android Studio', 'Java', 'Expo', 'VegaOS / FireTV', 'Mobile UI/UX', 'VisionCamera'],
+    frontend: ['React', 'Next.js', 'JavaScript', 'HTML5 / CSS3', 'Tailwind CSS'],
+    backend: ['Node.js', 'Express', 'Python', 'BERT / NLP', 'SQL', 'PostgreSQL', 'Supabase', 'Firebase'],
     tools: ['Java', 'C++', 'C', 'x86 Assembly', 'Git & GitHub', 'Figma', 'Android SDK']
   },
   education: [
@@ -65,8 +65,9 @@ function mergeAboutData(apiData) {
   };
 }
 
-const About = () => {
+const About = ({ onSelectSkill }) => {
   const [about, setAbout] = useState(defaultData);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     axios.get('/api/about')
@@ -78,12 +79,25 @@ const About = () => {
       });
   }, []);
 
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('shawaizali788@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
   const data = mergeAboutData(about);
 
   return (
     <div className="about-page">
+      {/* Copy Email Toast */}
+      {copied && (
+        <div className="toast-notification">
+          <FiCheck /> Copied shawaizali788@gmail.com to clipboard!
+        </div>
+      )}
+
       <div className="section-badge">
-        <span className="badge-dot"></span> About Me
+        <FiZap className="badge-icon" /> About Me
       </div>
 
       <h1 className="section-title">
@@ -91,7 +105,7 @@ const About = () => {
       </h1>
 
       <p className="section-subtitle">
-        Passionate software engineer with a 3.89 GPA at FAST-NUCES, specializing in mobile and cross-platform architecture.
+        Passionate software engineer with a 3.89 GPA at FAST-NUCES, specializing in mobile and cross-platform architecture. Click any skill chip below to filter matching projects!
       </p>
 
       {/* Profile Overview */}
@@ -120,8 +134,10 @@ const About = () => {
               <span className="hl-val">React Native & Android</span>
             </div>
             <div className="hl-item">
-              <span className="hl-label">Location</span>
-              <span className="hl-val">Lahore, Pakistan</span>
+              <span className="hl-label">Email Contact</span>
+              <button className="copy-email-btn" onClick={handleCopyEmail}>
+                {copied ? <FiCheck /> : <FiCopy />} Copy Email
+              </button>
             </div>
           </div>
           <a href={data.resume.href} className="btn btn-primary resume-btn" download>
@@ -132,7 +148,7 @@ const About = () => {
 
       {/* Skills Grid */}
       <div className="skills-container">
-        <h2 className="sub-title">Technical Expertise</h2>
+        <h2 className="sub-title">Technical Expertise (Click to filter projects)</h2>
         <div className="skills-grid">
           <TiltCard className="skill-card">
             <div className="skill-header">
@@ -141,7 +157,13 @@ const About = () => {
             </div>
             <div className="chips">
               {(data.skills.mobile || []).map((skill) => (
-                <span key={skill} className="chip">{skill}</span>
+                <span
+                  key={skill}
+                  className="chip clickable-chip"
+                  onClick={() => onSelectSkill && onSelectSkill(skill)}
+                >
+                  {skill}
+                </span>
               ))}
             </div>
           </TiltCard>
@@ -153,7 +175,13 @@ const About = () => {
             </div>
             <div className="chips">
               {(data.skills.frontend || []).map((skill) => (
-                <span key={skill} className="chip">{skill}</span>
+                <span
+                  key={skill}
+                  className="chip clickable-chip"
+                  onClick={() => onSelectSkill && onSelectSkill(skill)}
+                >
+                  {skill}
+                </span>
               ))}
             </div>
           </TiltCard>
@@ -165,7 +193,13 @@ const About = () => {
             </div>
             <div className="chips">
               {(data.skills.backend || []).map((skill) => (
-                <span key={skill} className="chip">{skill}</span>
+                <span
+                  key={skill}
+                  className="chip clickable-chip"
+                  onClick={() => onSelectSkill && onSelectSkill(skill)}
+                >
+                  {skill}
+                </span>
               ))}
             </div>
           </TiltCard>
@@ -177,7 +211,13 @@ const About = () => {
             </div>
             <div className="chips">
               {(data.skills.tools || []).map((skill) => (
-                <span key={skill} className="chip">{skill}</span>
+                <span
+                  key={skill}
+                  className="chip clickable-chip"
+                  onClick={() => onSelectSkill && onSelectSkill(skill)}
+                >
+                  {skill}
+                </span>
               ))}
             </div>
           </TiltCard>
@@ -204,6 +244,57 @@ const About = () => {
           display: flex;
           flex-direction: column;
           gap: 2.5rem;
+          position: relative;
+        }
+
+        .toast-notification {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          background: #10b981;
+          color: #ffffff;
+          padding: 0.75rem 1.25rem;
+          border-radius: 99px;
+          font-size: 0.875rem;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+          z-index: 3000;
+          animation: slideUp 0.3s ease-out;
+        }
+
+        .copy-email-btn {
+          background: rgba(148, 163, 184, 0.1);
+          border: 1px solid var(--border-glass);
+          color: var(--accent-primary);
+          padding: 0.2rem 0.6rem;
+          border-radius: 6px;
+          font-size: 0.775rem;
+          font-weight: 600;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          transition: all 0.2s ease;
+        }
+
+        .copy-email-btn:hover {
+          background: var(--accent-primary);
+          color: #ffffff;
+        }
+
+        .clickable-chip {
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .clickable-chip:hover {
+          background: var(--accent-primary);
+          color: #ffffff;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
         .about-overview-grid {
@@ -244,9 +335,10 @@ const About = () => {
         .hl-item {
           display: flex;
           justify-content: space-between;
+          align-items: center;
           font-size: 0.875rem;
           padding-bottom: 0.5rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid var(--border-glass);
         }
 
         .hl-label {
@@ -357,6 +449,11 @@ const About = () => {
           background: var(--badge-bg);
           color: var(--accent-primary);
           border: 1px solid var(--badge-border);
+        }
+
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 800px) {

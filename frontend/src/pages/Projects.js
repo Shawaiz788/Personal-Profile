@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BingoGame from './BingoGame';
 import SudokuGame from './SudokuGame';
 import TiltCard from '../components/TiltCard';
-import { FiCode, FiDownload, FiExternalLink, FiPlay, FiArrowLeft, FiSmartphone } from 'react-icons/fi';
+import ProjectDemoModal from '../components/ProjectDemoModal';
+import { FiCode, FiDownload, FiExternalLink, FiPlay, FiArrowLeft, FiSmartphone, FiSearch, FiFilm, FiZap } from 'react-icons/fi';
 
 const portfolioProjects = [
   {
@@ -10,10 +11,18 @@ const portfolioProjects = [
     title: 'KaamKarwao',
     tagline: 'Mobile Service Marketplace',
     description: 'A feature-packed mobile service booking platform connecting service seekers with skilled workers, featuring user authentication, booking workflows, real-time status tracking, and intuitive UI.',
-    technologies: ['React Native', 'Mobile Dev', 'JavaScript', 'Node.js', 'Firebase/API'],
+    technologies: ['React Native', 'Mobile Dev', 'Expo SDK 54', 'JavaScript', 'TanStack Query', 'MMKV Storage', 'Leaflet / OSM'],
     icon: '🛠️',
     gradient: 'linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%)',
     categories: ['mobile', 'fullstack'],
+    demoType: 'video',
+    videoUrl: 'https://github.com/user-attachments/assets/ae363c29-7017-44c1-b0b6-7505cb8d7bcd',
+    highlights: [
+      'Full 17-Module Admin Control Panel for User Directories, Reviews, Worker Earnings & Categories',
+      'Progressive Step Auth Loading with SecureStore session encryption',
+      'Instant-Mount Leaflet & OpenStreetMap interactive location search engine',
+      'Real-time service provider bidding radar and messaging workflow'
+    ],
     actions: [
       {
         kind: 'external',
@@ -27,10 +36,17 @@ const portfolioProjects = [
     title: 'Android Music Streaming',
     tagline: 'Native Android Audio App',
     description: 'A native Android music player and streaming starter application built with Java, Android SDK, and Media3/ExoPlayer featuring background audio services, playback controls, and modern Material UI.',
-    technologies: ['Android Studio', 'Java', 'Android SDK', 'ExoPlayer / Media3', 'Material Design'],
+    technologies: ['Android Studio', 'Java', 'Android SDK', 'ExoPlayer / Media3', 'Firebase', 'SQLite', 'Shazam AudD API'],
     icon: '🎵',
     gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
     categories: ['mobile'],
+    demoType: 'showcase',
+    highlights: [
+      'Built with Fragments + Navigation Component and custom PlayerManager singleton',
+      'Real-time song catalog, playlists, and user favorites powered by Firebase',
+      'Offline downloads caching (SQLite + local audio file persistence)',
+      'Audio recognition ("Shazam Mode") powered by AudD API with animated audio visualizer'
+    ],
     actions: [
       {
         kind: 'external',
@@ -48,6 +64,12 @@ const portfolioProjects = [
     icon: '🌿',
     gradient: 'linear-gradient(135deg, #42e695 0%, #3bb2b8 100%)',
     categories: ['fullstack'],
+    demoType: 'showcase',
+    highlights: [
+      'Fine-tuned BERT transformer models for medical question-answering',
+      'Symptom evaluation & natural language herbal consultation pipeline',
+      'REST API backend for real-time inference and user query response'
+    ],
     actions: [
       {
         kind: 'external',
@@ -65,10 +87,16 @@ const portfolioProjects = [
     icon: '🎮',
     gradient: 'linear-gradient(135deg, #5b8cff 0%, #6d4aff 100%)',
     categories: ['interactive'],
+    demoType: 'playable',
+    highlights: [
+      'Playable on site directly in your web browser',
+      'Custom low-level grid solver logic derived from x86 assembly routines',
+      'Interactive move validation and difficulty modes'
+    ],
     actions: [
       {
         kind: 'play',
-        label: 'Open Project'
+        label: 'Play on Site'
       }
     ]
   },
@@ -77,10 +105,18 @@ const portfolioProjects = [
     title: 'React Native Camera App',
     tagline: 'Native Mobile Camera & Gallery',
     description: 'A mobile camera application engineered with React Native and native device vision modules, supporting high-resolution image capture, filter previews, camera permission handling, and image gallery management.',
-    technologies: ['React Native', 'Mobile Dev', 'VisionCamera', 'JavaScript', 'iOS / Android'],
+    technologies: ['React Native', 'Mobile Dev', 'VisionCamera', 'Expo Router', 'Media Library', 'JavaScript'],
     icon: '📷',
     gradient: 'linear-gradient(135deg, #8a2be2 0%, #4a00e0 100%)',
     categories: ['mobile'],
+    demoType: 'video',
+    videoUrl: 'https://github.com/user-attachments/assets/4e0989c6-05b6-4b9f-83ee-a1f6b109d91b',
+    highlights: [
+      'Low-latency live camera preview powered by React Native Vision Camera v4',
+      'Curved radial controls for smooth zoom factors (1x to 5x) and exposure compensation',
+      'Flashlight torch toggle and synchronized flash strobe capture',
+      'Direct device photo gallery integration via Expo Media Library'
+    ],
     actions: [
       {
         kind: 'external',
@@ -94,10 +130,17 @@ const portfolioProjects = [
     title: 'FireTV Podcast App (VegaOS)',
     tagline: 'Smart TV & FireTV React Native App',
     description: 'Cross-platform podcast streaming application custom-tailored for Amazon FireTV and VegaOS TV interfaces, featuring D-pad remote navigation, background audio streaming, and leanback TV UI.',
-    technologies: ['React Native', 'Expo', 'FireTV / Smart TV', 'VegaOS', 'JavaScript'],
+    technologies: ['React Native', 'Expo TV', 'FireTV / Smart TV', 'VegaOS', 'Yarn Monorepo', 'Podcast API'],
     icon: '📺',
     gradient: 'linear-gradient(135deg, #ff4e50 0%, #f9d423 100%)',
     categories: ['mobile'],
+    demoType: 'video',
+    videoUrl: 'https://github.com/user-attachments/assets/54e3b5af-c778-45c0-8ceb-223d5ed6cd1a',
+    highlights: [
+      'Built as a Yarn Workspaces monorepo sharing code across FireTV, Android TV, Apple TV, and Web',
+      'TV-optimized remote control focus management and D-pad navigation',
+      'Podcast API search, episode browsing, and leanback audio player engine'
+    ],
     actions: [
       {
         kind: 'external',
@@ -110,11 +153,18 @@ const portfolioProjects = [
     id: 'friendsly',
     title: 'FriendsLy',
     tagline: 'Social Networking & Community Platform',
-    description: 'A mobile-first social discovery and community building platform enabling users to match over shared interests, initiate direct messages, and discover local activities.',
-    technologies: ['React Native', 'Mobile Dev', 'Firebase', 'Realtime DB', 'JavaScript'],
+    description: 'A mobile-first social discovery and community building platform enabling users to match over shared interests, initiate direct messages, and discover local activities without GPS tracking.',
+    technologies: ['React', 'TypeScript', 'Vite', 'Supabase', 'Privacy Controls', 'Mobile UI'],
     icon: '👥',
     gradient: 'linear-gradient(135deg, #f857a6 0%, #ff5858 100%)',
     categories: ['mobile', 'fullstack'],
+    demoType: 'showcase',
+    highlights: [
+      'Privacy-first design using approximate proximity without continuous location tracking',
+      'Social Aura broadcasting temporary moods, interests, and intentions',
+      'Serendipity Engine for spontaneous real-world activity recommendations',
+      'Hangout Capsules for digital memory sharing and secure messaging'
+    ],
     actions: [
       {
         kind: 'external',
@@ -132,6 +182,12 @@ const portfolioProjects = [
     icon: '🟡',
     gradient: 'linear-gradient(135deg, #ff8a3d 0%, #ffd166 100%)',
     categories: ['interactive', 'cpp'],
+    demoType: 'playable',
+    highlights: [
+      'Playable on site directly in your web browser',
+      'Two-player game logic ported from classic C++ codebase',
+      'Downloadable original C++ source files'
+    ],
     actions: [
       {
         kind: 'play',
@@ -154,6 +210,12 @@ const portfolioProjects = [
     icon: '🧠',
     gradient: 'linear-gradient(135deg, #7b61ff 0%, #4cc9f0 100%)',
     categories: ['fullstack'],
+    demoType: 'showcase',
+    highlights: [
+      'Competitive coding practice platform with live submission evaluation',
+      'Problem directory, category tags, and user leaderboards',
+      'Built with Next.js, NestJS backend, and PostgreSQL database'
+    ],
     actions: [
       {
         kind: 'external',
@@ -171,6 +233,12 @@ const portfolioProjects = [
     icon: '🍽️',
     gradient: 'linear-gradient(135deg, #2ec4b6 0%, #1b9aaa 100%)',
     categories: ['fullstack'],
+    demoType: 'showcase',
+    highlights: [
+      'Table booking management with live availability checks',
+      'User authentication, booking history, and customer records',
+      'Node.js REST API with SQL database storage'
+    ],
     actions: [
       {
         kind: 'external',
@@ -188,6 +256,12 @@ const portfolioProjects = [
     icon: '🏋️',
     gradient: 'linear-gradient(135deg, #00a896 0%, #4dd7a8 100%)',
     categories: ['cpp'],
+    demoType: 'showcase',
+    highlights: [
+      'Console application built with object-oriented C++',
+      'File-based data persistence for user profiles & workout history',
+      'Workout recommendations and fitness tracking calculations'
+    ],
     actions: [
       {
         kind: 'download',
@@ -206,6 +280,12 @@ const portfolioProjects = [
     icon: '🏦',
     gradient: 'linear-gradient(135deg, #ef476f 0%, #ff7b54 100%)',
     categories: ['cpp'],
+    demoType: 'showcase',
+    highlights: [
+      'Object-oriented banking system with accounts & card management',
+      'Transaction processing and fraud status checking logic',
+      'Multi-tier account structure and file-driven persistent state'
+    ],
     actions: [
       {
         kind: 'download',
@@ -217,7 +297,15 @@ const portfolioProjects = [
   }
 ];
 
-function ActionButton({ action, onPlay }) {
+function ActionButton({ action, onPlay, onOpenDemo, demoType }) {
+  if (demoType === 'video') {
+    return (
+      <button type="button" className="action-btn primary" onClick={onOpenDemo}>
+        <FiFilm /> Watch Demo
+      </button>
+    );
+  }
+
   if (action.kind === 'play') {
     return (
       <button type="button" className="action-btn primary" onClick={onPlay}>
@@ -241,9 +329,17 @@ function ActionButton({ action, onPlay }) {
   );
 }
 
-const Projects = () => {
+const Projects = ({ initialFilter = 'all' }) => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [filter, setFilter] = useState('all');
+  const [activeModalProject, setActiveModalProject] = useState(null);
+  const [filter, setFilter] = useState(initialFilter);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    if (initialFilter) {
+      setFilter(initialFilter);
+    }
+  }, [initialFilter]);
 
   if (selectedProject === 'sudoku') {
     return (
@@ -268,14 +364,24 @@ const Projects = () => {
   }
 
   const visibleProjects = portfolioProjects.filter((project) => {
-    if (filter === 'all') return true;
-    return project.categories.includes(filter);
+    // Category match
+    const categoryMatch = filter === 'all' || project.categories.includes(filter);
+    
+    // Search query match
+    if (!searchQuery.trim()) return categoryMatch;
+
+    const q = searchQuery.toLowerCase().trim();
+    const titleMatch = project.title.toLowerCase().includes(q);
+    const descMatch = project.description.toLowerCase().includes(q);
+    const techMatch = project.technologies.some(t => t.toLowerCase().includes(q));
+
+    return categoryMatch && (titleMatch || descMatch || techMatch);
   });
 
   return (
     <div className="projects-page">
       <div className="section-badge">
-        <span className="badge-dot"></span> Portfolio Showcase
+        <FiZap className="badge-icon" /> Portfolio Showcase
       </div>
 
       <h1 className="section-title">
@@ -283,55 +389,88 @@ const Projects = () => {
       </h1>
 
       <p className="section-subtitle">
-        A curated collection of mobile applications (React Native, Android Java), AI models, full-stack systems, and interactive games.
+        A curated collection of mobile applications (React Native, Android Java), AI models, full-stack systems, and interactive games. Click any project card or demo button to preview!
       </p>
 
-      {/* Filter Tabs */}
-      <div className="filter-bar">
-        {[
-          { id: 'all', label: 'All Work' },
-          { id: 'mobile', label: 'Mobile Apps' },
-          { id: 'fullstack', label: 'Full-Stack & AI' },
-          { id: 'interactive', label: 'Interactive' },
-          { id: 'cpp', label: 'C++ Systems' }
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            className={`filter-btn ${filter === tab.id ? 'active' : ''}`}
-            onClick={() => setFilter(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
+      {/* Search & Filter Bar */}
+      <div className="controls-bar">
+        <div className="search-box">
+          <FiSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search by title, tech stack (e.g. React Native, Java, AI)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button className="clear-search-btn" onClick={() => setSearchQuery('')}>×</button>
+          )}
+        </div>
+
+        <div className="filter-bar">
+          {[
+            { id: 'all', label: 'All Work' },
+            { id: 'mobile', label: 'Mobile Apps' },
+            { id: 'fullstack', label: 'Full-Stack & AI' },
+            { id: 'interactive', label: 'Interactive' },
+            { id: 'cpp', label: 'C++ Systems' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              className={`filter-btn ${filter === tab.id ? 'active' : ''}`}
+              onClick={() => setFilter(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Projects Grid */}
       <div className="projects-grid">
         {visibleProjects.map((project) => (
-          <TiltCard key={project.id} className="project-card">
-            <div className="card-top">
-              <div className="project-icon">{project.icon}</div>
-              <span className="tagline-chip">
-                {project.categories.includes('mobile') ? <FiSmartphone /> : <FiCode />}
-                {project.tagline}
-              </span>
-            </div>
+          <TiltCard
+            key={project.id}
+            className="project-card"
+            style={{ cursor: 'pointer' }}
+          >
+            <div onClick={() => setActiveModalProject(project)} className="card-clickable-area">
+              <div className="card-top">
+                <div className="project-icon">{project.icon}</div>
+                <span className="tagline-chip">
+                  {project.categories.includes('mobile') ? <FiSmartphone /> : <FiCode />}
+                  {project.tagline}
+                </span>
+              </div>
 
-            <h3 className="project-title">{project.title}</h3>
-            <p className="project-desc">{project.description}</p>
+              <h3 className="project-title">{project.title}</h3>
+              <p className="project-desc">{project.description}</p>
 
-            <div className="tech-tags">
-              {project.technologies.map((tech) => (
-                <span key={tech} className="tech-chip">{tech}</span>
-              ))}
+              <div className="tech-tags">
+                {project.technologies.slice(0, 4).map((tech) => (
+                  <span key={tech} className="tech-chip">{tech}</span>
+                ))}
+                {project.technologies.length > 4 && (
+                  <span className="tech-chip text-dim">+{project.technologies.length - 4}</span>
+                )}
+              </div>
             </div>
 
             <div className="card-actions">
+              <button
+                type="button"
+                className="action-btn primary"
+                onClick={() => setActiveModalProject(project)}
+              >
+                {project.demoType === 'video' ? <FiFilm /> : <FiCode />} Details & Demo
+              </button>
               {project.actions.map((act, idx) => (
                 <ActionButton
                   key={idx}
                   action={act}
+                  demoType={project.demoType}
                   onPlay={() => setSelectedProject(project.id)}
+                  onOpenDemo={() => setActiveModalProject(project)}
                 />
               ))}
             </div>
@@ -339,10 +478,70 @@ const Projects = () => {
         ))}
       </div>
 
+      {/* Demo Modal Overlay */}
+      {activeModalProject && (
+        <ProjectDemoModal
+          project={activeModalProject}
+          onClose={() => setActiveModalProject(null)}
+          onPlay={() => setSelectedProject(activeModalProject.id)}
+        />
+      )}
+
       <style jsx>{`
         .projects-page {
           display: flex;
           flex-direction: column;
+        }
+
+        .controls-bar {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .search-box {
+          position: relative;
+          display: flex;
+          align-items: center;
+          max-width: 550px;
+          width: 100%;
+        }
+
+        .search-icon {
+          position: absolute;
+          left: 1rem;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        }
+
+        .search-box input {
+          width: 100%;
+          padding: 0.75rem 2.5rem 0.75rem 2.75rem;
+          border-radius: 99px;
+          background: rgba(148, 163, 184, 0.08);
+          border: 1px solid var(--border-glass);
+          color: var(--text-main);
+          font-family: var(--font-body);
+          font-size: 0.9rem;
+          outline: none;
+          transition: all 0.25s ease;
+        }
+
+        .search-box input:focus {
+          border-color: var(--accent-primary);
+          background: rgba(148, 163, 184, 0.14);
+          box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .clear-search-btn {
+          position: absolute;
+          right: 1rem;
+          background: transparent;
+          border: none;
+          color: var(--text-muted);
+          font-size: 1.2rem;
+          cursor: pointer;
         }
 
         .filter-bar {
@@ -355,7 +554,6 @@ const Projects = () => {
           padding: 0.35rem 0.5rem;
           border-radius: 99px;
           border: 1px solid var(--border-glass);
-          margin-bottom: 2rem;
           -webkit-overflow-scrolling: touch;
           scrollbar-width: none;
         }
@@ -405,6 +603,12 @@ const Projects = () => {
           display: flex;
           flex-direction: column;
           height: 100%;
+        }
+
+        .card-clickable-area {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
         }
 
         .card-top {
@@ -472,6 +676,10 @@ const Projects = () => {
           background: rgba(148, 163, 184, 0.08);
           color: var(--text-main);
           border: 1px solid var(--border-glass);
+        }
+
+        .tech-chip.text-dim {
+          color: var(--text-dim);
         }
 
         .card-actions {

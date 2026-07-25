@@ -1,5 +1,4 @@
-import React from 'react';
-import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiSmartphone, FiCode, FiLayers, FiAward } from 'react-icons/fi';
+import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiSmartphone, FiCode, FiLayers, FiAward, FiZap } from 'react-icons/fi';
 import TiltCard from '../components/TiltCard';
 
 const Home = ({ setCurrentPage }) => {
@@ -9,7 +8,7 @@ const Home = ({ setCurrentPage }) => {
       <section className="hero-grid">
         <div className="hero-text-col">
           <div className="section-badge">
-            <span className="badge-dot"></span>
+            <FiZap className="badge-icon" />
             Open to Mobile & Software Roles
           </div>
 

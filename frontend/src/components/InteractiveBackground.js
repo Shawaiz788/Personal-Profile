@@ -42,22 +42,25 @@ const InteractiveBackground = ({ theme = 'light' }) => {
 
     const primaryColor = isLight ? 'rgba(29, 78, 216, ' : 'rgba(59, 130, 246, ';
     const secondaryColor = isLight ? 'rgba(5, 150, 105, ' : 'rgba(16, 185, 129, ';
+    const cyanColor = isLight ? 'rgba(2, 132, 199, ' : 'rgba(6, 182, 212, ';
 
     for (let i = 0; i < particleCount; i++) {
+      const rand = Math.random();
+      const colorChosen = rand > 0.6 ? primaryColor : rand > 0.3 ? secondaryColor : cyanColor;
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
-        color: Math.random() > 0.5 ? primaryColor : secondaryColor,
-        baseAlpha: isLight ? Math.random() * 0.25 + 0.15 : Math.random() * 0.4 + 0.2
+        color: colorChosen,
+        baseAlpha: isLight ? Math.random() * 0.35 + 0.25 : Math.random() * 0.4 + 0.2
       });
     }
 
     // Ambient floating 3D wireframe cubes
-    const shapeColor = isLight ? 'rgba(29, 78, 216, 0.08)' : 'rgba(59, 130, 246, 0.12)';
-    const shapeColor2 = isLight ? 'rgba(5, 150, 105, 0.08)' : 'rgba(16, 185, 129, 0.12)';
+    const shapeColor = isLight ? 'rgba(29, 78, 216, 0.12)' : 'rgba(59, 130, 246, 0.12)';
+    const shapeColor2 = isLight ? 'rgba(5, 150, 105, 0.12)' : 'rgba(16, 185, 129, 0.12)';
 
     const shapes = [
       { x: width * 0.15, y: height * 0.25, size: 60, rotX: 0, rotY: 0, speedX: 0.005, speedY: 0.008, color: shapeColor },
@@ -115,13 +118,13 @@ const InteractiveBackground = ({ theme = 'light' }) => {
         0,
         mouse.x,
         mouse.y,
-        350
+        380
       );
 
       if (isLight) {
-        cursorGlow.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
-        cursorGlow.addColorStop(0.5, 'rgba(16, 185, 129, 0.03)');
-        cursorGlow.addColorStop(1, 'rgba(248, 250, 252, 0)');
+        cursorGlow.addColorStop(0, 'rgba(56, 189, 248, 0.16)');
+        cursorGlow.addColorStop(0.5, 'rgba(16, 185, 129, 0.06)');
+        cursorGlow.addColorStop(1, 'rgba(240, 244, 249, 0)');
       } else {
         cursorGlow.addColorStop(0, 'rgba(59, 130, 246, 0.16)');
         cursorGlow.addColorStop(0.5, 'rgba(16, 185, 129, 0.05)');

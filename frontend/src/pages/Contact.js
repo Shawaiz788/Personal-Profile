@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FiSend, FiMail, FiUser, FiMessageSquare, FiGithub, FiLinkedin } from 'react-icons/fi';
+import { FiSend, FiMail, FiUser, FiMessageSquare, FiGithub, FiLinkedin, FiCopy, FiCheck, FiZap } from 'react-icons/fi';
 import TiltCard from '../components/TiltCard';
 
 const Contact = () => {
@@ -11,6 +11,7 @@ const Contact = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +19,12 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('shawaizali788@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
   };
 
   const handleSubmit = (e) => {
@@ -38,8 +45,15 @@ const Contact = () => {
 
   return (
     <div className="contact-page">
+      {/* Copy Email Toast */}
+      {copied && (
+        <div className="toast-notification">
+          <FiCheck /> Copied shawaizali788@gmail.com to clipboard!
+        </div>
+      )}
+
       <div className="section-badge">
-        <span className="badge-dot"></span> Get In Touch
+        <FiZap className="badge-icon" /> Get In Touch
       </div>
 
       <h1 className="section-title">
@@ -59,9 +73,14 @@ const Contact = () => {
             </div>
             <div className="info-detail">
               <span className="info-label">Direct Email</span>
-              <a href="mailto:shawaizali788@gmail.com" className="info-link">
-                shawaizali788@gmail.com
-              </a>
+              <div className="email-row">
+                <a href="mailto:shawaizali788@gmail.com" className="info-link">
+                  shawaizali788@gmail.com
+                </a>
+                <button className="copy-btn" onClick={handleCopyEmail} title="Copy Email">
+                  {copied ? <FiCheck /> : <FiCopy />}
+                </button>
+              </div>
             </div>
           </TiltCard>
 
@@ -151,6 +170,25 @@ const Contact = () => {
         .contact-page {
           display: flex;
           flex-direction: column;
+          position: relative;
+        }
+
+        .toast-notification {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          background: #10b981;
+          color: #ffffff;
+          padding: 0.75rem 1.25rem;
+          border-radius: 99px;
+          font-size: 0.875rem;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+          z-index: 3000;
+          animation: slideUp 0.3s ease-out;
         }
 
         .contact-grid {
@@ -216,6 +254,12 @@ const Contact = () => {
           margin-bottom: 0.25rem;
         }
 
+        .email-row {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
         .info-link {
           font-size: 0.95rem;
           font-weight: 600;
@@ -226,6 +270,25 @@ const Contact = () => {
 
         .info-link:hover {
           color: var(--accent-primary);
+        }
+
+        .copy-btn {
+          background: rgba(148, 163, 184, 0.1);
+          border: 1px solid var(--border-glass);
+          color: var(--accent-primary);
+          padding: 0.25rem 0.5rem;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 0.85rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+          background: var(--accent-primary);
+          color: #ffffff;
         }
 
         .contact-form-card {
@@ -271,11 +334,11 @@ const Contact = () => {
 
         .form-group input, .form-group textarea {
           width: 100%;
-          background: rgba(255, 255, 255, 0.03);
+          background: rgba(148, 163, 184, 0.05);
           border: 1px solid var(--border-glass);
           border-radius: 12px;
           padding: 0.75rem 1rem;
-          color: #ffffff;
+          color: var(--text-main);
           font-family: var(--font-body);
           font-size: 0.925rem;
           outline: none;
@@ -283,15 +346,20 @@ const Contact = () => {
         }
 
         .form-group input:focus, .form-group textarea:focus {
-          border-color: var(--accent-indigo);
-          background: rgba(255, 255, 255, 0.06);
-          box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+          border-color: var(--accent-primary);
+          background: rgba(148, 163, 184, 0.1);
+          box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
         }
 
         .submit-btn {
           width: 100%;
           justify-content: center;
           margin-top: 0.5rem;
+        }
+
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 800px) {

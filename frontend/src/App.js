@@ -5,10 +5,11 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import InteractiveBackground from './components/InteractiveBackground';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { FiSun, FiMoon, FiDownload, FiTerminal } from 'react-icons/fi';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedFilter, setSelectedFilter] = useState('all');
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('portfolio_theme') || 'light';
   });
@@ -22,14 +23,19 @@ function App() {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
+  const handleSelectFilter = (filterTag) => {
+    setSelectedFilter(filterTag);
+    setCurrentPage('projects');
+  };
+
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
         return <Home setCurrentPage={setCurrentPage} />;
       case 'about':
-        return <About />;
+        return <About onSelectSkill={handleSelectFilter} />;
       case 'projects':
-        return <Projects />;
+        return <Projects initialFilter={selectedFilter} />;
       case 'contact':
         return <Contact />;
       default:
@@ -43,7 +49,7 @@ function App() {
       <nav className="navbar">
         <div className="nav-container">
           <div className="logo" onClick={() => setCurrentPage('home')}>
-            <span className="logo-dot"></span>
+            <FiTerminal className="logo-icon" />
             Shawaiz Ali
           </div>
           <div className="nav-right-group">
@@ -81,6 +87,14 @@ function App() {
                 </button>
               </li>
             </ul>
+            <a
+              href="/resume.pdf"
+              download="Shawaiz_Ali_Resume.pdf"
+              className="nav-resume-btn"
+              title="Download PDF Resume"
+            >
+              <FiDownload /> Resume
+            </a>
             <button
               className="theme-toggle-btn"
               onClick={toggleTheme}
